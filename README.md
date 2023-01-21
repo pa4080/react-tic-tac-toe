@@ -61,6 +61,4 @@ npm run build
 
      * If you are using `create-react-app` then, by default, you will use `index.js` as JS index file of the project, but with `vite` the default JS index file is `main.jsx`.
 
-     * I prefer to write the starter React code on my own, so at this point my file [`src/main.jsx`](src/main.jsx) is empty and there is another file [`src/main-provided.jsx`](src/main-provided.jsx) which contains the starter code.
-
 Thats it. Run the dev-server (`npm run dev`) and check the result in the browser. Start following the tutorial from the [Overview section](https://reactjs.org/tutorial/tutorial.html#overview).
