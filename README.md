@@ -21,11 +21,11 @@ npm create vite@latest
 npm install
 ```
 
-In order to change the port of the dev-server, edit the [`package.json`](package.json) file and add the `--port` option to the `dev` script.
+In order to change the port of the dev-server, edit the [`package.json`](package.json) file and add the `--port` option to the `dev` script. By default the server will accept requests only at `localhost` but not at `127.0.0.1`, no matter what is written in `/etc/hosts`. To change this behavior add the `--host 127.0.0.1` option to the `dev` script. The final `dev` script will look like this:
 
 ```json
 "scripts": {
-  "dev": "vite --port 3000",
+  "dev": "vite --port 3000 --host 127.0.0.1"
 },
 ```
 
