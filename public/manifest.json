@@ -1,0 +1,37 @@
+{
+  "short_name": "MLT Prj",
+  "name": "Metalevel.tech Project",
+  "description": "This is a project or exercise performed by Spas Z. Spasov.",
+  "icons": [
+    {
+      "src": "mlt.favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "mlt.favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    },
+    {
+      "src": "mlt.logo192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "mlt.logo512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "theme_color": "#aaaaaa",
+  "background_color": "#333333",
+  "prefer_related_applications": false
+}

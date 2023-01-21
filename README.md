@@ -1,10 +1,13 @@
-# ReactJS Exercise Create a Tic-Tac-Toe Game
+# ReactJS Exercise Create a Tic Tac Toe Game
 
-Just refresh my React memory and make their [tic-tac-toe](https://reactjs.org/tutorial/tutorial.html) tutorial.
+Just refresh my React memory by their [Tutorial](https://reactjs.org/tutorial/tutorial.html).
 
-## Install react within the project
+* [Tic Tac Toe: Final result](https://codepen.io/gaearon/pen/gWWZgR?editors=0010)
+* [Tic Tac Toe: Starter code](https://codepen.io/gaearon/pen/oWWQNa?editors=0010)
 
-In the original tutorial, they use `create-react-app` to create a new project. But here is used [Vite](https://vitejs.dev/). Note [Node.js and NPM](https://wiki.metalevel.tech/wiki/Node.js_Getting_Started) are required.
+## Install React within the project
+
+In the original tutorial, they use [`create-react-app`](https://reactjs.org/docs/create-a-new-react-app.html) to create a new project. But here is used [Vite](https://vitejs.dev/). Note in all cases [Node.js and NPM](https://wiki.metalevel.tech/wiki/Node.js_Getting_Started) are required.
 
 In the snippet below we are using `.` to create the react project in the current directory. This will wipe all existing files in the current directory excepts the `.git` directory.
 
@@ -32,4 +35,32 @@ To start the Vite's dev-server use:
 npm run dev
 ```
 
-Finally create [`jsconfig.json`](jsconfig.json) file in the root directory of the react project to enable the [IntelliSense](https://code.visualstudio.com/docs/languages/javascript#_intellisense) for the JavaScript files.
+Next create [`jsconfig.json`](jsconfig.json) file in the root directory of the react project to enable the [IntelliSense](https://code.visualstudio.com/docs/languages/javascript#_intellisense) for the JavaScript files.
+
+To build the application for production use:
+
+```bash
+npm run build
+```
+
+## Prepare React for the Project
+
+1. Edit the [`index.html`](index.html) file: Change the title tag, the favicon file name, etc.
+2. Review and tweak the content of the [`public/`](`public/`) directory.
+3. In the [`src/`](src/) directory keep only the files [`main.jsx`](src/main.jsx) and [`index.css`](src/index.css) and delete the rest. Also:
+   * Wipe the content of the [`index.css`](src/index.css) file then fill it with the [starter CSS code](https://codepen.io/gaearon/pen/oWWQNa?editors=0100).
+   * Wipe the content of the [`main.jsx`](src/main.jsx) file and then fill it with the [starter code](https://codepen.io/gaearon/pen/oWWQNa?editors=0010). Then add the following lines to the top of the file:
+
+      ```jsx
+      import React from "react";
+      import ReactDOM from "react-dom/client";
+      import "./index.css";
+      ```
+
+   * Notes:
+
+     * If you are using `create-react-app` then, by default, you will use `index.js` as JS index file of the project, but with `vite` the default JS index file is `main.jsx`.
+
+     * I prefer to write the starter React code on my own, so at this point my file [`src/main.jsx`](src/main.jsx) is empty and there is another file [`src/main-provided.jsx`](src/main-provided.jsx) which contains the starter code.
+
+Thats it. Run the dev-server (`npm run dev`) and check the result in the browser. Start following the tutorial from the [Overview section](https://reactjs.org/tutorial/tutorial.html#overview).
