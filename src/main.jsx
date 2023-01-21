@@ -3,25 +3,43 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 
 class Square extends React.Component {
-  constructor(props) {
-    super(props); // Call the parent's class constructor
-
-    this.state = {
-      value: null
-    };
-  }
   render() {
     return (
-      <button className="square" onClick={() => this.setState({ value: "X" })}>
-        {this.state.value}
+      <button className="square" onClick={() => this.props.onClickBoard()}>
+        {this.props.value}
       </button>
     );
   }
 }
 
 class Board extends React.Component {
+  constructor(props) {
+    super(props); // Call the parent's class constructor
+
+    this.state = {
+      squares: Array(9).fill(null)
+    };
+  }
+
+  handleClick(i) {
+    // https://reactjs.org/tutorial/tutorial.html#why-immutability-is-important
+    // const squares = this.state.squares.slice();
+    const squares = [...this.state.squares];
+    squares[i] = "X";
+    this.setState({ squares: squares });
+  }
+
   renderSquare(i) {
-    return <Square value={i} />;
+    return (
+      <Square
+        value={this.state.squares[i]}
+        // onClickBoard() doesn't use any parameters, so we
+        // should not pass any arguments when call it!
+        onClickBoard={() => {
+          this.handleClick(i);
+        }}
+      />
+    );
   }
 
   render() {
