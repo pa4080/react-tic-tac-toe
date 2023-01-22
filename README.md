@@ -62,3 +62,12 @@ npm run build
      * If you are using `create-react-app` then, by default, you will use `index.js` as JS index file of the project, but with `vite` the default JS index file is `main.jsx`.
 
 Thats it. Run the dev-server (`npm run dev`) and check the result in the browser. Start following the tutorial from the [Overview section](https://reactjs.org/tutorial/tutorial.html#overview).
+
+## Notes
+
+### Tailwind CSS
+
+* [Tailwind CSS](https://tailwindcss.com/) is a utility-first CSS framework for rapidly building custom designs.
+* [Install Tailwind CSS with Vite Official Guide](https://tailwindcss.com/docs/guides/vite)
+* [How To Create React and Tailwind project with Vite by Abraham Anak Agung](https://anakagung.com/blog/how-to-create-react-and-tailwind-project-with-vite/)
+*
