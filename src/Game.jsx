@@ -1,5 +1,8 @@
 import React from "react";
 
+// Disable the hot reload, https://stackoverflow.com/a/74817610/6543935
+// if (import.meta.hot) import.meta.hot.accept(() => import.meta.hot.invalidate());
+
 function Square(props) {
   return (
     <button className="square" onClick={props.onClickBoard}>
@@ -12,7 +15,8 @@ class Board extends React.Component {
     super(props); // Call the parent's class constructor
 
     this.state = {
-      squares: Array(9).fill(null)
+      squares: Array(9).fill(null),
+      xIsNext: true
     };
   }
 
@@ -20,8 +24,12 @@ class Board extends React.Component {
     // https://reactjs.org/tutorial/tutorial.html#why-immutability-is-important
     // const squares = this.state.squares.slice();
     const squares = [...this.state.squares];
-    squares[i] = "X";
-    this.setState({ squares: squares });
+    squares[i] = this.state.xIsNext ? "X" : "O";
+
+    this.setState({
+      squares: squares,
+      xIsNext: !this.state.xIsNext
+    });
   }
 
   renderSquare(i) {
@@ -38,7 +46,7 @@ class Board extends React.Component {
   }
 
   render() {
-    const status = "Next player: X";
+    const status = `Next player: ${this.state.xIsNext ? "X" : "O"}`;
 
     return (
       <div>
