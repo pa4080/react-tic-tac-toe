@@ -1,4 +1,5 @@
 import React from "react";
+import { calculateWinner } from "./helpers/Calculate";
 
 // Disable the hot reload, https://stackoverflow.com/a/74817610/6543935
 // if (import.meta.hot) import.meta.hot.accept(() => import.meta.hot.invalidate());
@@ -16,7 +17,8 @@ class Board extends React.Component {
 
     this.state = {
       squares: Array(9).fill(null),
-      xIsNext: true
+      xIsNext: true,
+      winner: false
     };
   }
 
@@ -24,11 +26,16 @@ class Board extends React.Component {
     // https://reactjs.org/tutorial/tutorial.html#why-immutability-is-important
     // const squares = this.state.squares.slice();
     const squares = [...this.state.squares];
+
+    // Ignoring a click if someone has won the game or if a Square is already filled
+    if (calculateWinner(squares) || squares[i]) return;
+
     squares[i] = this.state.xIsNext ? "X" : "O";
 
     this.setState({
       squares: squares,
-      xIsNext: !this.state.xIsNext
+      xIsNext: !this.state.xIsNext,
+      winner: this.state.winner
     });
   }
 
@@ -46,7 +53,13 @@ class Board extends React.Component {
   }
 
   render() {
-    const status = `Next player: ${this.state.xIsNext ? "X" : "O"}`;
+    let status;
+    const winner = calculateWinner(this.state.squares);
+    if (winner) {
+      status = "Winner: " + winner;
+    } else {
+      status = `Next player: ${this.state.xIsNext ? "X" : "O"}`;
+    }
 
     return (
       <div>
