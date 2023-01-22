@@ -37,10 +37,26 @@ class Game extends React.Component {
     });
   }
 
+  jumpTo(movie) {
+    console.log(movie);
+  }
+
   render() {
     const history = this.state.history;
     const current = history[history.length - 1];
     const winner = calculateWinner(current.squares);
+
+    const movies = history.map((step, movie) => {
+      const description = movie ? "Go to movie: #" + movie : "Go to game start";
+      return (
+        // It’s strongly recommended that you assign
+        // proper keys whenever you build dynamic lists.
+        // Keys do not need to be globally unique.
+        <li key={movie}>
+          <button onClick={() => this.jumpTo(movie)}>{description}</button>
+        </li>
+      );
+    });
 
     let status;
 
@@ -62,7 +78,7 @@ class Game extends React.Component {
         </div>
         <div className="game-info">
           <div>{status}</div>
-          <ol>{/* TODO */}</ol>
+          <ol>{movies}</ol>
         </div>
       </div>
     );
