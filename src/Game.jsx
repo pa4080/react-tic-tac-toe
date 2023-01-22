@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import Board from "./components/Board";
 import { calculateWinner } from "./helpers/Calculate";
 
@@ -15,12 +15,13 @@ class Game extends React.Component {
           squares: Array(9).fill(null)
         }
       ],
+      stepNumber: 0,
       xIsNext: true
     };
   }
 
   handleClick(i) {
-    const history = this.state.history;
+    const history = this.state.history.slice(0, this.state.stepNumber + 1);
     const current = history[history.length - 1];
     // https://reactjs.org/tutorial/tutorial.html#why-immutability-is-important
     // const squares = this.props.squares.slice();
@@ -33,17 +34,24 @@ class Game extends React.Component {
 
     this.setState({
       history: history.concat([{ squares: squares }]),
+      stepNumber: history.length,
       xIsNext: !this.state.xIsNext
     });
   }
 
-  jumpTo(movie) {
-    console.log(movie);
+  jumpTo(step) {
+    // State Updates are Merged: React will update only the properties mentioned in
+    //                           setState method leaving the remaining state as is.
+    // https://reactjs.org/docs/state-and-lifecycle.html#state-updates-are-merged
+    this.setState({
+      stepNumber: step,
+      xIsNext: step % 2 === 0
+    });
   }
 
   render() {
     const history = this.state.history;
-    const current = history[history.length - 1];
+    const current = history[this.state.stepNumber];
     const winner = calculateWinner(current.squares);
 
     const movies = history.map((step, movie) => {
