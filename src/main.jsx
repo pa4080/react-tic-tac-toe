@@ -12,7 +12,7 @@ import TestListBox from "./components/TestListBox";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <h1 className="text-3xl font-bold underline mb-6">Tic Tac Toe</h1>
+    <h1 className="text-3xl font-bold underline pt-10 mb-10">Tic Tac Toe</h1>
     <Game />
     {/* <TestListBox /> */}
   </React.StrictMode>

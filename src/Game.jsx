@@ -1,6 +1,7 @@
 import React from "react";
 import Board from "./components/Board";
 import Status from "./components/Status";
+import TestListBox from "./components/TestListBox";
 import { calculateWinner } from "./helpers/Calculate";
 
 // Disable the hot reload, https://stackoverflow.com/a/74817610/6543935
@@ -61,14 +62,14 @@ class Game extends React.Component {
         // It’s strongly recommended that you assign
         // proper keys whenever you build dynamic lists.
         // Keys do not need to be globally unique.
-        <li key={movie}>
+        <li key={movie} className="py-2">
           <button onClick={() => this.jumpTo(movie)}>{description}</button>
         </li>
       );
     });
 
     return (
-      <div className="game">
+      <div className="game ">
         <div className="game-board">
           <Board
             squares={current.squares}
@@ -77,11 +78,16 @@ class Game extends React.Component {
             }}
           />
         </div>
-        <div className="game-info mt-6">
+        <div className="game-info mt-10">
           <div>
             <Status winner={winner} xIsNext={this.state.xIsNext} />
           </div>
-          <ol>{movies}</ol>
+          {/* <div>
+            <TestListBox />
+          </div> */}
+          <div className="relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
+            <ol>{movies}</ol>
+          </div>
         </div>
       </div>
     );
