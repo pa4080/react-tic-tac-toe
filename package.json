@@ -12,6 +12,8 @@
     "git-log-2": "git log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short"
   },
   "dependencies": {
+    "@headlessui/react": "^1.7.7",
+    "@heroicons/react": "^2.0.13",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
@@ -19,6 +21,9 @@
     "@types/react": "^18.0.26",
     "@types/react-dom": "^18.0.9",
     "@vitejs/plugin-react": "^3.0.0",
+    "autoprefixer": "^10.4.13",
+    "postcss": "^8.4.21",
+    "tailwindcss": "^3.2.4",
     "vite": "^4.0.0"
   }
 }

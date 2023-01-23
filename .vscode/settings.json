@@ -6,11 +6,14 @@
     "Bootcamp",
     "Codeholic",
     "esversion",
+    "headlessui",
+    "Heroicons",
     "intelephense",
     "Laravel",
     "phpdoc",
     "signup",
-    "Signup"
+    "Signup",
+    "tailwindcss"
   ],
   "markdownlint.config": {
     "MD033": false
@@ -57,4 +60,5 @@
   "intelephense.phpdoc.useFullyQualifiedNames": true,
   "php.completion.autoimport-docblock": "fqn",
   "intelephense.diagnostics.undefinedMethods": false,
+  "css.lint.unknownAtRules": "ignore",
 }
