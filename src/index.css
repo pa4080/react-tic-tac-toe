@@ -2,24 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  font: 14px "Century Gothic", Futura, sans-serif;
-  margin: 20px;
+html,
+body,
+#root {
+  height: 100%;
+  width: 100%;
 }
 
-ol,
-ul {
-  padding-left: 30px;
+#root h1 {
+  text-align: center;
 }
 
 .board-row:after {
   clear: both;
   content: "";
   display: table;
-}
-
-.status {
-  margin-bottom: 10px;
 }
 
 .square {
@@ -35,6 +32,10 @@ ul {
   padding: 0;
   text-align: center;
   width: 34px;
+  width: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .square:focus {
@@ -48,8 +49,16 @@ ul {
 .game {
   display: flex;
   flex-direction: row;
+  width: 100%;
+  min-width: 200px;
+  align-items: center;
+  flex-direction: column;
 }
 
 .game-info {
-  margin-left: 20px;
+  width: 160px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-direction: column;
 }

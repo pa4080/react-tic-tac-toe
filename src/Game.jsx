@@ -1,5 +1,6 @@
 import React from "react";
 import Board from "./components/Board";
+import Status from "./components/Status";
 import { calculateWinner } from "./helpers/Calculate";
 
 // Disable the hot reload, https://stackoverflow.com/a/74817610/6543935
@@ -66,31 +67,21 @@ class Game extends React.Component {
       );
     });
 
-    let status;
-
-    if (winner) {
-      status = "Winner is: " + winner;
-    } else {
-      status = `Next player: ${this.state.xIsNext ? "X" : "O"}`;
-    }
-
     return (
-      <div>
-        <h1 className="text-3xl font-bold underline mb-6">Tic Tac Toe</h1>
-
-        <div className="game">
-          <div className="game-board">
-            <Board
-              squares={current.squares}
-              onClickGame={(i) => {
-                this.handleClick(i);
-              }}
-            />
+      <div className="game">
+        <div className="game-board">
+          <Board
+            squares={current.squares}
+            onClickGame={(i) => {
+              this.handleClick(i);
+            }}
+          />
+        </div>
+        <div className="game-info mt-6">
+          <div>
+            <Status winner={winner} xIsNext={this.state.xIsNext} />
           </div>
-          <div className="game-info">
-            <div>{status}</div>
-            <ol>{movies}</ol>
-          </div>
+          <ol>{movies}</ol>
         </div>
       </div>
     );
