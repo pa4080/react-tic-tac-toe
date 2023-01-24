@@ -14,7 +14,9 @@ class GameTicTacToe extends React.Component {
     this.state = {
       history: [
         {
-          squares: Array(9).fill(null)
+          squares: Array(9).fill(null),
+          x: null,
+          y: null
         }
       ],
       stepNumber: 0,
@@ -22,12 +24,12 @@ class GameTicTacToe extends React.Component {
     };
   }
 
-  handleClick(i) {
+  handleClick(i, x, y) {
+    // console.log(i, x + 1, y + 1);
+
     const history = this.state.history.slice(0, this.state.stepNumber + 1);
     const current = history[history.length - 1];
-    // https://reactjs.org/tutorial/tutorial.html#why-immutability-is-important
-    // const squares = this.props.squares.slice();
-    const squares = [...current.squares];
+    const squares = [...current.squares]; // const squares = this.props.squares.slice();
 
     // Ignoring a click if someone has won the game or if a Square is already filled
     if (calculateWinner(squares).winner || squares[i]) return;
@@ -35,7 +37,13 @@ class GameTicTacToe extends React.Component {
     squares[i] = this.state.xIsNext ? "X" : "O";
 
     this.setState({
-      history: history.concat([{ squares: squares }]),
+      history: history.concat([
+        {
+          squares: squares,
+          x: x,
+          y: y
+        }
+      ]),
       stepNumber: history.length,
       xIsNext: !this.state.xIsNext
     });
@@ -57,12 +65,15 @@ class GameTicTacToe extends React.Component {
     const { winner, lines } = calculateWinner(current.squares);
 
     const movies = history.map((step, movie) => {
-      const description = movie ? "Go to movie: #" + movie : "Go to game start";
+      // console.log(step);
+      const description = movie
+        ? `Go to movie: #${movie} [x:${step.x}, y:${step.y}]`
+        : "Go to game start";
       return (
         // It’s strongly recommended that you assign
         // proper keys whenever you build dynamic lists.
         // Keys do not need to be globally unique.
-        <li key={movie} className="py-2">
+        <li key={movie} className="py-2 text-lg ">
           <button onClick={() => this.jumpTo(movie)}>{description}</button>
         </li>
       );
@@ -76,8 +87,8 @@ class GameTicTacToe extends React.Component {
         <div className="game-board">
           <Board
             squares={current.squares}
-            onClickGame={(i) => {
-              this.handleClick(i);
+            onClickGame={(i, x, y) => {
+              this.handleClick(i, x, y);
             }}
             lines={lines}
           />

@@ -2,11 +2,11 @@ import React from "react";
 import Square from "./Square";
 
 function Board(props) {
-  const renderSquare = (i) => {
+  const renderSquare = (i, x, y) => {
     return (
       <Square
         value={props.squares[i]}
-        onClickBoard={() => props.onClickGame(i)}
+        onClickBoard={() => props.onClickGame(i, x, y)}
         highlight={Array.isArray(props.lines) && props.lines.includes(i)}
       />
     );
@@ -18,11 +18,11 @@ function Board(props) {
     <div className="board rounded-lg shadow-xl">
       <table className="board-table rounded-lg bg-white">
         <tbody>
-          {[0, 1, 2].map((y) => {
+          {[1, 2, 3].map((y) => {
             return (
               <tr key={y}>
-                {[0, 1, 2].map((x) => {
-                  return <td key={x}>{renderSquare(index++)}</td>;
+                {[1, 2, 3].map((x) => {
+                  return <td key={x}>{renderSquare(index++, x, y)}</td>;
                 })}
               </tr>
             );
