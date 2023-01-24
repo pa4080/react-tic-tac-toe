@@ -5,7 +5,7 @@ export default function SwitchToggle(props) {
   const [enabled, setEnabled] = useState(false);
 
   useEffect(() => {
-    props.switchOrder(enabled);
+    props.switch(enabled);
   }, [enabled]);
 
   return (

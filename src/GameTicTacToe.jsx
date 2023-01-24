@@ -1,4 +1,3 @@
-import { Switch } from "@headlessui/react";
 import React from "react";
 import Board from "./components/Board";
 import PlayerHeart from "./components/PlayerHeart";
@@ -25,7 +24,8 @@ class GameTicTacToe extends React.Component {
         }
       ],
       stepNumber: 0,
-      reverseHistDisplay: false
+      reverseHistDisplay: false,
+      resetGame: false
     };
   }
 
@@ -70,6 +70,26 @@ class GameTicTacToe extends React.Component {
 
   handleSwitchOrder(order) {
     this.setState({ reverseHistDisplay: order });
+  }
+
+  handleResetGame() {
+    this.setState({
+      history: [
+        {
+          squares: Array(9).fill(null),
+          x: null,
+          y: null,
+          xIsNext: true,
+          number: 0
+        }
+      ],
+      stepNumber: 0,
+      reverseHistDisplay: false,
+      resetGame: true
+    });
+    setTimeout(() => {
+      this.setState({ resetGame: false });
+    }, 100);
   }
 
   render() {
@@ -125,15 +145,23 @@ class GameTicTacToe extends React.Component {
             }}
             lines={lines}
           />
+          <button
+            onClick={() => !this.state.resetGame && this.handleResetGame()}
+            className={`py-3 px-5 text-center w-full mt-10 rounded-lg font-bold text-lg text-white transition duration-100" ${
+              this.state.resetGame
+                ? "bg-red-500 shadow-sm"
+                : "bg-red-400 shadow-md"
+            }`}
+          >
+            Restart Game
+          </button>
         </div>
         <div className="game-info mt-10">
           <div>
             <Status winner={winner} xIsNext={current.xIsNext} />
           </div>
           <div>
-            <SwitchToggle
-              switchOrder={(order) => this.handleSwitchOrder(order)}
-            />
+            <SwitchToggle switch={(order) => this.handleSwitchOrder(order)} />
           </div>
 
           {/* <div>
