@@ -11,7 +11,7 @@ export default function Status({ winner, xIsNext }) {
     : "Next player is:";
 
   return (
-    <div className="inline-flex items-center font-sans text-xl mb-4">
+    <div className="inline-flex items-center font-sans text-xl mb-2 mt-4">
       {message}&nbsp;
       {!winner && ((xIsNext && <PlayerStar />) || <PlayerHeart />)}
       {(winner === "X" && <PlayerStar />) ||

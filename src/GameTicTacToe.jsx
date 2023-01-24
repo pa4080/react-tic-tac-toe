@@ -133,10 +133,8 @@ class GameTicTacToe extends React.Component {
     });
 
     return (
-      <div className="game">
-        <h1 className="text-3xl font-bold underline mt-10 mb-10">
-          Tic Tac Toe
-        </h1>
+      <div className="game pt-10">
+        <h1 className="text-3xl font-bold underline mb-10">Tic Tac Toe</h1>
         <div className="game-board">
           <Board
             squares={current.squares}
@@ -145,21 +143,23 @@ class GameTicTacToe extends React.Component {
             }}
             lines={lines}
           />
-          <button
-            onClick={() => !this.state.resetGame && this.handleResetGame()}
-            className={`py-3 px-5 text-center w-full mt-10 rounded-lg font-bold text-lg text-white transition duration-100" ${
-              this.state.resetGame
-                ? "bg-red-500 shadow-sm"
-                : "bg-red-400 shadow-md"
-            }`}
-          >
-            Restart Game
-          </button>
         </div>
-        <div className="game-info mt-10">
-          <div>
-            <Status winner={winner} xIsNext={current.xIsNext} />
-          </div>
+
+        <div className="mt-6">
+          <Status winner={winner} xIsNext={current.xIsNext} />
+        </div>
+
+        <button
+          onClick={() => this.handleResetGame()}
+          className={`py-3 px-6 text-center fit-content mt-6 rounded-lg font-bold text-lg text-white transition duration-100 ${
+            this.state.resetGame
+              ? "bg-red-500 shadow-sm"
+              : "bg-red-400 shadow-md"
+          }`}
+        >
+          Restart Game
+        </button>
+        <div className="game-info mt-10 pb-10">
           <div>
             <SwitchToggle switch={(order) => this.handleSwitchOrder(order)} />
           </div>
