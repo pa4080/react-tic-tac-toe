@@ -1,9 +1,10 @@
+import { Switch } from "@headlessui/react";
 import React from "react";
 import Board from "./components/Board";
 import PlayerHeart from "./components/PlayerHeart";
 import PlayerStar from "./components/PlayerStar";
 import Status from "./components/Status";
-import TestListBox from "./components/TestListBox";
+import SwitchToggle from "./components/SwitchToggle";
 import { calculateWinner } from "./helpers/Calculate";
 
 // Disable the hot reload, https://stackoverflow.com/a/74817610/6543935
@@ -23,7 +24,8 @@ class GameTicTacToe extends React.Component {
           number: 0
         }
       ],
-      stepNumber: 0
+      stepNumber: 0,
+      reverseHistDisplay: false
     };
   }
 
@@ -66,15 +68,28 @@ class GameTicTacToe extends React.Component {
     return xIsNext ? <PlayerStar /> : <PlayerHeart />;
   }
 
+  handleSwitchOrder(order) {
+    this.setState({ reverseHistDisplay: order });
+  }
+
   render() {
-    const history = this.state.history;
+    const history = [...this.state.history];
     const current = history[this.state.stepNumber];
     const { winner, lines } = calculateWinner(current.squares);
 
-    const movies = history.map((step, movie) => {
-      const description = movie
-        ? `Go to movie: #${movie} [x:${step.x}, y:${step.y}]`
-        : "Go to game start";
+    const movies = history.map((step, movie, arr) => {
+      const description = movie ? (
+        <span className="items-center flex w-full justify-between pr-2">
+          <span>
+            {movie === arr.length - 1 ? "Last move" : "Go to move"}: #{movie}
+          </span>
+          <span>
+            [x:{step.x}, y:{step.y}]
+          </span>
+        </span>
+      ) : (
+        <span>Go to game start</span>
+      );
 
       return (
         // It’s strongly recommended that you assign
@@ -90,7 +105,7 @@ class GameTicTacToe extends React.Component {
             onClick={() => this.jumpTo(movie)}
             className="items-center flex w-full justify-between"
           >
-            <span>{description}</span>
+            {description}
             {movie ? this.getPlayer(!step.xIsNext) : ""}
           </button>
         </li>
@@ -98,7 +113,7 @@ class GameTicTacToe extends React.Component {
     });
 
     return (
-      <div className="game ">
+      <div className="game">
         <h1 className="text-3xl font-bold underline mt-10 mb-10">
           Tic Tac Toe
         </h1>
@@ -115,11 +130,17 @@ class GameTicTacToe extends React.Component {
           <div>
             <Status winner={winner} xIsNext={current.xIsNext} />
           </div>
+          <div>
+            <SwitchToggle
+              switchOrder={(order) => this.handleSwitchOrder(order)}
+            />
+          </div>
+
           {/* <div>
             <TestListBox />
           </div> */}
           <div className="relative w-full cursor-default rounded-lg bg-white py-2 text-left shadow-md focus:outline-none">
-            <ol>{movies}</ol>
+            <ol>{this.state.reverseHistDisplay ? movies.reverse() : movies}</ol>
           </div>
         </div>
       </div>
