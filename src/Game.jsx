@@ -30,7 +30,7 @@ class Game extends React.Component {
     const squares = [...current.squares];
 
     // Ignoring a click if someone has won the game or if a Square is already filled
-    if (calculateWinner(squares) || squares[i]) return;
+    if (calculateWinner(squares).winner || squares[i]) return;
 
     squares[i] = this.state.xIsNext ? "X" : "O";
 
@@ -54,7 +54,7 @@ class Game extends React.Component {
   render() {
     const history = this.state.history;
     const current = history[this.state.stepNumber];
-    const winner = calculateWinner(current.squares);
+    const { winner, lines } = calculateWinner(current.squares);
 
     const movies = history.map((step, movie) => {
       const description = movie ? "Go to movie: #" + movie : "Go to game start";
@@ -76,6 +76,7 @@ class Game extends React.Component {
             onClickGame={(i) => {
               this.handleClick(i);
             }}
+            lines={lines}
           />
         </div>
         <div className="game-info mt-10">

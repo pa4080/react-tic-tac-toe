@@ -7,6 +7,9 @@ class Board extends React.Component {
       <Square
         value={this.props.squares[i]}
         onClickBoard={() => this.props.onClickGame(i)}
+        highlight={
+          Array.isArray(this.props.lines) && this.props.lines.includes(i)
+        }
       />
     );
   }
