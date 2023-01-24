@@ -17,6 +17,10 @@ function calculateWinner(squares) {
       return squares[a];
     }
   }
+
+  const tie = squares.every((el) => el != null);
+  if (tie) return "Draw";
+
   return null;
 }
 
