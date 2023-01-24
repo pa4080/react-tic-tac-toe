@@ -7,7 +7,7 @@ import { calculateWinner } from "./helpers/Calculate";
 // Disable the hot reload, https://stackoverflow.com/a/74817610/6543935
 // if (import.meta.hot) import.meta.hot.accept(() => import.meta.hot.invalidate());
 
-class Game extends React.Component {
+class GameTicTacToe extends React.Component {
   constructor(props) {
     super(props); // Call the parent's class constructor
 
@@ -70,6 +70,9 @@ class Game extends React.Component {
 
     return (
       <div className="game ">
+        <h1 className="text-3xl font-bold underline pt-10 mb-10">
+          Tic Tac Toe
+        </h1>
         <div className="game-board">
           <Board
             squares={current.squares}
@@ -95,4 +98,4 @@ class Game extends React.Component {
   }
 }
 
-export default Game;
+export default GameTicTacToe;
