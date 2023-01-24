@@ -122,6 +122,7 @@ class GameTicTacToe extends React.Component {
           }`}
         >
           <button
+            aria-label="History jump"
             onClick={() => this.jumpTo(movie)}
             className="items-center flex w-full justify-between"
           >
@@ -134,7 +135,9 @@ class GameTicTacToe extends React.Component {
 
     return (
       <div className="game pt-10">
-        <h1 className="text-3xl font-bold underline mb-10">Tic Tac Toe</h1>
+        <h1 className="text-3xl font-bold underline mb-10 text-gray-700">
+          Tic Tac Toe
+        </h1>
         <div className="game-board">
           <Board
             squares={current.squares}
@@ -150,11 +153,12 @@ class GameTicTacToe extends React.Component {
         </div>
 
         <button
+          aria-label="Restart"
           onClick={() => this.handleResetGame()}
           className={`py-3 px-6 text-center fit-content mt-6 rounded-lg font-bold text-lg text-white transition duration-100 ${
             this.state.resetGame
-              ? "bg-red-500 shadow-sm"
-              : "bg-red-400 shadow-md"
+              ? "bg-red-400 shadow-sm"
+              : "bg-red-500 shadow-md"
           }`}
         >
           Restart Game

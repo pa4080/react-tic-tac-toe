@@ -22,7 +22,11 @@ function Board(props) {
             return (
               <tr key={y}>
                 {[1, 2, 3].map((x) => {
-                  return <td key={x}>{renderSquare(index++, x, y)}</td>;
+                  return (
+                    <td key={x} className="py-1 px-1">
+                      {renderSquare(index++, x, y)}
+                    </td>
+                  );
                 })}
               </tr>
             );

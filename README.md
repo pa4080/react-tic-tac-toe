@@ -43,6 +43,10 @@ To build the application for production use:
 npm run build
 ```
 
+**References***
+
+* [Vite: Options for assets building without adding hash](https://github.com/vitejs/vite/issues/378)
+
 ## Prepare React for the Project
 
 1. Edit the [`index.html`](index.html) file: Change the title tag, the favicon file name, etc.
