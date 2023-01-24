@@ -20,7 +20,6 @@ body {
 
 .game {
   display: flex;
-  flex-direction: row;
   width: 100%;
   min-width: 200px;
   align-items: center;
@@ -28,7 +27,7 @@ body {
 }
 
 .game-info {
-  width: 280px;
+  width: 260px;
   display: flex;
   flex-direction: row;
   align-items: center;

@@ -1,5 +1,7 @@
 import React from "react";
 import Board from "./components/Board";
+import PlayerHeart from "./components/PlayerHeart";
+import PlayerStar from "./components/PlayerStar";
 import Status from "./components/Status";
 import TestListBox from "./components/TestListBox";
 import { calculateWinner } from "./helpers/Calculate";
@@ -16,11 +18,12 @@ class GameTicTacToe extends React.Component {
         {
           squares: Array(9).fill(null),
           x: null,
-          y: null
+          y: null,
+          xIsNext: true,
+          number: 0
         }
       ],
-      stepNumber: 0,
-      xIsNext: true
+      stepNumber: 0
     };
   }
 
@@ -34,18 +37,19 @@ class GameTicTacToe extends React.Component {
     // Ignoring a click if someone has won the game or if a Square is already filled
     if (calculateWinner(squares).winner || squares[i]) return;
 
-    squares[i] = this.state.xIsNext ? "X" : "O";
+    squares[i] = current.xIsNext ? "X" : "O";
 
     this.setState({
       history: history.concat([
         {
           squares: squares,
           x: x,
-          y: y
+          y: y,
+          xIsNext: !current.xIsNext,
+          number: history.length
         }
       ]),
-      stepNumber: history.length,
-      xIsNext: !this.state.xIsNext
+      stepNumber: history.length
     });
   }
 
@@ -54,9 +58,12 @@ class GameTicTacToe extends React.Component {
     //                           setState method leaving the remaining state as is.
     // https://reactjs.org/docs/state-and-lifecycle.html#state-updates-are-merged
     this.setState({
-      stepNumber: step,
-      xIsNext: step % 2 === 0
+      stepNumber: step
     });
+  }
+
+  getPlayer(xIsNext) {
+    return xIsNext ? <PlayerStar /> : <PlayerHeart />;
   }
 
   render() {
@@ -65,23 +72,34 @@ class GameTicTacToe extends React.Component {
     const { winner, lines } = calculateWinner(current.squares);
 
     const movies = history.map((step, movie) => {
-      // console.log(step);
       const description = movie
         ? `Go to movie: #${movie} [x:${step.x}, y:${step.y}]`
         : "Go to game start";
+
       return (
         // It’s strongly recommended that you assign
         // proper keys whenever you build dynamic lists.
         // Keys do not need to be globally unique.
-        <li key={movie} className="py-2 text-lg ">
-          <button onClick={() => this.jumpTo(movie)}>{description}</button>
+        <li
+          key={movie}
+          className={`py-2 px-2 text-lg${
+            current.number === step.number ? " bg-orange-100" : ""
+          }`}
+        >
+          <button
+            onClick={() => this.jumpTo(movie)}
+            className="items-center flex w-full justify-between"
+          >
+            <span>{description}</span>
+            {movie ? this.getPlayer(!step.xIsNext) : ""}
+          </button>
         </li>
       );
     });
 
     return (
       <div className="game ">
-        <h1 className="text-3xl font-bold underline pt-10 mb-10">
+        <h1 className="text-3xl font-bold underline mt-10 mb-10">
           Tic Tac Toe
         </h1>
         <div className="game-board">
@@ -95,12 +113,12 @@ class GameTicTacToe extends React.Component {
         </div>
         <div className="game-info mt-10">
           <div>
-            <Status winner={winner} xIsNext={this.state.xIsNext} />
+            <Status winner={winner} xIsNext={current.xIsNext} />
           </div>
           {/* <div>
             <TestListBox />
           </div> */}
-          <div className="relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
+          <div className="relative w-full cursor-default rounded-lg bg-white py-2 text-left shadow-md focus:outline-none">
             <ol>{movies}</ol>
           </div>
         </div>
