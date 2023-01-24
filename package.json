@@ -9,7 +9,8 @@
     "preview": "vite preview",
     "git-log-0": "watch --color git log --color",
     "git-log-1": "watch git log --pretty=format:'%s%d'",
-    "git-log-2": "git log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short"
+    "git-log-2": "git log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short",
+    "deploy.szs.local": "vite build && ssh szs.local 'rm -rf /home/pa4080/bindfs/var/www/exc-js-react-tic-tac-toe/dist' && rsync -avr dist szs.local:/home/pa4080/bindfs/var/www/exc-js-react-tic-tac-toe"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.7",
