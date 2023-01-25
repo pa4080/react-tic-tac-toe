@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: "waltograph";
+  src: url("../public/waltograph42.otf");
+}
+
 html,
 body,
 #root {
@@ -111,7 +116,7 @@ body {
 }
 
 *::-webkit-scrollbar-thumb {
-  background: rgb(251 165 181);
+  background: rgb(248 136 154);
   /* rgb(254 192 203);*/
   border: 5px solid rgb(254 242 242);
   border-radius: 12px;
@@ -120,11 +125,12 @@ body {
 }
 
 *::-webkit-scrollbar-thumb:vertical:hover {
-  background: rgba(238, 70, 73, 0.822);
+  background: rgb(243 66 95);
+  ;
 }
 
 /** FireFox Scrollbar * html, body {..} **/
 * {
-  scrollbar-color: rgb(251 165 181) rgb(254 242 242);
+  scrollbar-color: rgb(248 136 154) rgb(254 242 242);
   /* scrollbar-width: normal; */
 }

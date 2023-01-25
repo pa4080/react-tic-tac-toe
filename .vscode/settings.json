@@ -1,10 +1,12 @@
 {
   "cSpell.words": [
     "Agung",
+    "Argel",
     "Arrayable",
     "autoimport",
     "Bootcamp",
     "Codeholic",
+    "Ekene",
     "esversion",
     "headlessui",
     "Heroicons",
@@ -14,7 +16,8 @@
     "phpdoc",
     "signup",
     "Signup",
-    "tailwindcss"
+    "tailwindcss",
+    "Waltograph"
   ],
   "markdownlint.config": {
     "MD033": false

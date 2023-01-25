@@ -27,7 +27,7 @@ export default function RestartGame({ setGameHistory, setStepNumber }) {
       aria-label="Restart Game"
       onClick={() => handleResetGame()}
       className={`py-3 px-6 text-center fit-content mt-6 rounded-lg font-bold text-lg text-white transition duration-100 ${
-        resetGame ? "bg-gray-500 shadow-sm" : "bg-red-500 shadow-md"
+        resetGame ? "bg-gray-500 shadow-sm" : "bg-rose-500 shadow-md"
       }`}
     >
       Restart Game

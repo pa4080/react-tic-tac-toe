@@ -55,7 +55,7 @@ function GameTicTacToe() {
 
   return (
     <div className="game pt-10">
-      <h1 className="text-3xl font-bold underline mb-10 text-gray-700">
+      <h1 className="text-7xl font-waltograph mb-5 text-rose-500 opacity-60 hover:opacity-100 cursor-default transition-opacity">
         Tic Tac Toe
       </h1>
 

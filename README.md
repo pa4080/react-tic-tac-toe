@@ -125,3 +125,4 @@ module.exports = {
 * [How to fix Unknown at rule @tailwindcss (unknownAtRules) in VS Code](https://flaviocopes.com/fix-unknown-at-rule-tailwind/)
 * [Heroicons: Beautiful hand-crafted SVG icons, by the makers of Tailwind CSS](https://heroicons.com/)
 * [HeadlessUI: Completely unstyled, fully accessible UI components, designed to integrate beautifully with Tailwind CSS.](https://headlessui.com/)
+* [How to use custom fonts in Tailwind CSS by Peter Ekene Eze on LogRocket](https://blog.logrocket.com/how-to-use-custom-fonts-tailwind-css/)
