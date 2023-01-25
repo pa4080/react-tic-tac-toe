@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import ToggleSwitch from "./ToggleSwitch";
 import PlayerDraw from "./PlayerDraw";
 import PlayerHeart from "./PlayerHeart";

@@ -16,7 +16,7 @@ export default function ToggleSwitch(props) {
           checked={enabled}
           onChange={setEnabled}
           className={`${
-            enabled ? "bg-orange-300" : "bg-gray-300"
+            enabled ? "bg-orange-300" : "bg-rose-300"
           } relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none`}
         >
           <span

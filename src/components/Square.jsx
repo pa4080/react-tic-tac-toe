@@ -7,7 +7,7 @@ function Square(props) {
     <button
       aria-label="Game board square"
       className={`square rounded-lg ${props.highlight ? "bg-orange-200" : ""}`}
-      onClick={props.onClickBoard}
+      onMouseDown={props.onClickBoard}
     >
       {props.value === "X" && <PlayerStar />}
       {props.value === "O" && <PlayerHeart />}

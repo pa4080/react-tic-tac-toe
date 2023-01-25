@@ -19,6 +19,7 @@ function GameTicTacToe() {
     }
   ]);
   const [stepNumber, setStepNumber] = useState(0);
+  const [newGame, setNewGame] = useState(true);
 
   useEffect(() => {
     if (winner) {
@@ -75,6 +76,7 @@ function GameTicTacToe() {
           handleClick(i, x, y);
         }}
         lines={lines}
+        setNewGame={setNewGame}
       />
 
       <Status
@@ -83,19 +85,20 @@ function GameTicTacToe() {
         setGameHistory={setGameHistory}
         setStepNumber={setStepNumber}
         stepNumber={stepNumber}
+        newGame={newGame}
       />
 
       <RestartGameButton
         setGameHistory={setGameHistory}
         setStepNumber={setStepNumber}
+        winner={winner}
+        setNewGame={setNewGame}
       />
-
-      {/* <Dropdown /> */}
 
       <GameHistory
         history={history}
         current={current}
-        setStepNumber={setStepNumber}
+        setStepNumber={(movie) => setStepNumber(movie)}
       />
     </div>
   );

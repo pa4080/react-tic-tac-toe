@@ -10,13 +10,16 @@ export default function Status({
   xIsNext,
   setGameHistory,
   stepNumber,
-  setStepNumber
+  setStepNumber,
+  newGame
 }) {
   let message = winner
     ? winner === "Draw"
       ? "Draw"
-      : "Winner is"
-    : "Next player is";
+      : "Winner"
+    : stepNumber
+    ? "Next player"
+    : "First player";
 
   const whoIsNext = () => {
     return xIsNext ? <PlayerStar /> : <PlayerHeart />;
@@ -39,7 +42,7 @@ export default function Status({
       {message}&nbsp;
       {!winner && whoIsNext()}
       {winner && whoIsWinner()}
-      {!stepNumber && (
+      {!stepNumber && newGame && (
         <div className="absolute -top-4 -right-8 scale-75">
           <ToggleSwitch
             switch={(trigger) => {

@@ -6,7 +6,10 @@ function Board(props) {
     return (
       <Square
         value={props.squares[i]}
-        onClickBoard={() => props.onClickGame(i, x, y)}
+        onClickBoard={() => {
+          props.onClickGame(i, x, y);
+          props.setNewGame(false);
+        }}
         highlight={Array.isArray(props.lines) && props.lines.includes(i)}
       />
     );
