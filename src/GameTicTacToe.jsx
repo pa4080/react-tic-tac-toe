@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Board from "./components/GameBoard";
 import GameHistory from "./components/GameHistory";
-import RestartGame from "./components/RestartGame";
+import RestartGameButton from "./components/RestartGame";
 import Status from "./components/Status";
 import { calculateWinner } from "./helpers/Calculate";
 
@@ -29,8 +29,6 @@ function GameTicTacToe() {
       );
     }
   }, [stepNumber]);
-
-  useEffect(() => {}, []);
 
   function handleClick(i, x, y) {
     const history = gameHistory.slice(0, stepNumber + 1); // reset the game from the history, whe continue
@@ -79,9 +77,15 @@ function GameTicTacToe() {
         lines={lines}
       />
 
-      <Status winner={winner} xIsNext={current.xIsNext} />
+      <Status
+        winner={winner}
+        xIsNext={current.xIsNext}
+        setGameHistory={setGameHistory}
+        setStepNumber={setStepNumber}
+        stepNumber={stepNumber}
+      />
 
-      <RestartGame
+      <RestartGameButton
         setGameHistory={setGameHistory}
         setStepNumber={setStepNumber}
       />

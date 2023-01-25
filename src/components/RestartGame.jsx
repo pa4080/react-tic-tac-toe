@@ -1,23 +1,28 @@
 import React, { useState } from "react";
 
-export default function RestartGame({ setGameHistory, setStepNumber }) {
+function RestartGame({ setGameHistory, setStepNumber }) {
+  setStepNumber(0);
+
+  const xIsNext = JSON.parse(localStorage.getItem("X_IS_NEXT")) ?? true;
+
+  setGameHistory([
+    {
+      squares: Array(9).fill(null),
+      x: null,
+      y: null,
+      xIsNext: xIsNext,
+      number: 0
+    }
+  ]);
+}
+
+function RestartGameButton(props) {
   const [resetGame, setResetGame] = useState(false);
 
   function handleResetGame() {
-    const xIsNext = JSON.parse(localStorage.getItem("X_IS_NEXT")) ?? true;
-    setGameHistory([
-      {
-        squares: Array(9).fill(null),
-        x: null,
-        y: null,
-        xIsNext: xIsNext,
-        number: 0
-      }
-    ]);
+    RestartGame(props);
 
-    setStepNumber(0);
     setResetGame(true);
-
     setTimeout(() => {
       setResetGame(false);
     }, 200);
@@ -35,3 +40,6 @@ export default function RestartGame({ setGameHistory, setStepNumber }) {
     </button>
   );
 }
+
+export { RestartGame };
+export default RestartGameButton;

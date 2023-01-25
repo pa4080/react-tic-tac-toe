@@ -1,30 +1,55 @@
-import React from "react";
+import React, { useState } from "react";
 import PlayerDraw from "./PlayerDraw";
 import PlayerHeart from "./PlayerHeart";
 import PlayerStar from "./PlayerStar";
 import ToggleSwitch from "./ToggleSwitch";
+import { RestartGame } from "./RestartGame";
 
-export default function Status({ winner, xIsNext }) {
+export default function Status({
+  winner,
+  xIsNext,
+  setGameHistory,
+  stepNumber,
+  setStepNumber
+}) {
   let message = winner
     ? winner === "Draw"
       ? "Draw"
       : "Winner is"
     : "Next player is";
 
+  const whoIsNext = () => {
+    return xIsNext ? <PlayerStar /> : <PlayerHeart />;
+  };
+
+  const whoIsWinner = () => {
+    if (winner === "X") return <PlayerStar />;
+    if (winner === "O") return <PlayerHeart />;
+    return <PlayerDraw />;
+  };
+
+  const switchPlayers = (trigger) => {
+    localStorage.removeItem("X_IS_NEXT");
+    localStorage.setItem("X_IS_NEXT", JSON.stringify(trigger));
+    RestartGame({ setGameHistory, setStepNumber });
+  };
+
   return (
-    <div className="inline-flex items-center font-sans text-xl mb-2 mt-8">
+    <div className="inline-flex items-center font-sans text-xl mb-2 mt-8 relative">
       {message}&nbsp;
-      {!winner && ((xIsNext && <PlayerStar />) || <PlayerHeart />)}
-      {(winner === "X" && <PlayerStar />) ||
-        (winner === "O" && <PlayerHeart />) ||
-        (winner === "Draw" && <PlayerDraw />)}
-      {/* <ToggleSwitch
-        switch={(show) => {
-          console.log();
-        }}
-        label={""}
-        default={"showHistory"}
-      /> */}
+      {!winner && whoIsNext()}
+      {winner && whoIsWinner()}
+      {!stepNumber && (
+        <div className="absolute -top-4 -right-8 scale-75">
+          <ToggleSwitch
+            switch={(trigger) => {
+              switchPlayers(trigger);
+            }}
+            label={""}
+            default={xIsNext}
+          />
+        </div>
+      )}
     </div>
   );
 }
