@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Dropdown from "./components/Dropdown";
 import Board from "./components/GameBoard";
 import GameHistory from "./components/GameHistory";
 import RestartGame from "./components/RestartGame";
@@ -72,6 +73,8 @@ function GameTicTacToe() {
         setGameHistory={setGameHistory}
         setStepNumber={setStepNumber}
       />
+
+      {/* <Dropdown /> */}
 
       <GameHistory
         history={history}

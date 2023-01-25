@@ -5,6 +5,10 @@ Just refresh my React memory by their [Tutorial](https://reactjs.org/tutorial/tu
 * [Tic Tac Toe: Final result](https://codepen.io/gaearon/pen/gWWZgR?editors=0010)
 * [Tic Tac Toe: Starter code](https://codepen.io/gaearon/pen/oWWQNa?editors=0010)
 
+**React references:**
+
+* [Local Storage in React: Create custom React LocalStorage Hook](https://www.robinwieruch.de/local-storage-react/)
+
 ## Install React within the project
 
 In the original tutorial, they use [`create-react-app`](https://reactjs.org/docs/create-a-new-react-app.html) to create a new project. But here is used [Vite](https://vitejs.dev/). Note in all cases [Node.js and NPM](https://wiki.metalevel.tech/wiki/Node.js_Getting_Started) are required.
@@ -43,7 +47,7 @@ To build the application for production use:
 npm run build
 ```
 
-**References***
+**Vite references:**
 
 * [Vite: Options for assets building without adding hash](https://github.com/vitejs/vite/issues/378)
 
@@ -112,7 +116,7 @@ module.exports = {
 }
 ```
 
-**References:**
+**Tailwind references:**
 
 * [Tailwind CSS](https://tailwindcss.com/) is a utility-first CSS framework for rapidly building custom designs.
 * [**Install Tailwind CSS with Vite Official Guide**](https://tailwindcss.com/docs/guides/vite)
