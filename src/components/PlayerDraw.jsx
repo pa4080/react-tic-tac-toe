@@ -4,7 +4,7 @@ export default function PlayerDraw() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      fill="rgba(238, 70, 73, 0.822)"
+      fill="rgb(248 136 154)"
       viewBox="0 0 24 24"
       strokeWidth={1}
       stroke="currentColor"
