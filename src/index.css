@@ -20,8 +20,10 @@ body {
   overflow-y: hidden;
 }
 
+
 #root {
-  overflow-y: scroll;
+  /* overflow-y: scroll; */
+  overflow-y: overlay;
 }
 
 #root h1 {
