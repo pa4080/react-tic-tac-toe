@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Board from "./components/Board";
+import Board from "./components/GameBoard";
 import PlayerDraw from "./components/PlayerDraw";
 import PlayerHeart from "./components/PlayerHeart";
 import PlayerStar from "./components/PlayerStar";
