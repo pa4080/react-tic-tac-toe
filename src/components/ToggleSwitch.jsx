@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Switch } from "@headlessui/react";
 
-export default function SwitchToggle(props) {
+export default function ToggleSwitch(props) {
   const [enabled, setEnabled] = useState(props.default || false);
 
   useEffect(() => {

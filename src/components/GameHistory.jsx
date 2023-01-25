@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import SwitchToggle from "./SwitchToggle";
+import ToggleSwitch from "./ToggleSwitch";
 import PlayerDraw from "./PlayerDraw";
 import PlayerHeart from "./PlayerHeart";
 import PlayerStar from "./PlayerStar";
@@ -50,7 +50,7 @@ export default function GameHistory({ history, current, setStepNumber }) {
 
   return (
     <div className="game-history mt-10 pb-10">
-      <SwitchToggle
+      <ToggleSwitch
         switch={(show) => setShowHistory(show)}
         label={"Show history"}
         default={showHistory}
@@ -58,7 +58,7 @@ export default function GameHistory({ history, current, setStepNumber }) {
 
       {showHistory && (
         <>
-          <SwitchToggle
+          <ToggleSwitch
             switch={(order) => setReverseHist(order)}
             label={"History order"}
             default={reverseHistory}

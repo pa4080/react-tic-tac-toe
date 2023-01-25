@@ -2,6 +2,7 @@ import React from "react";
 import PlayerDraw from "./PlayerDraw";
 import PlayerHeart from "./PlayerHeart";
 import PlayerStar from "./PlayerStar";
+import ToggleSwitch from "./ToggleSwitch";
 
 export default function Status({ winner, xIsNext }) {
   let message = winner
@@ -17,6 +18,13 @@ export default function Status({ winner, xIsNext }) {
       {(winner === "X" && <PlayerStar />) ||
         (winner === "O" && <PlayerHeart />) ||
         (winner === "Draw" && <PlayerDraw />)}
+      {/* <ToggleSwitch
+        switch={(show) => {
+          console.log();
+        }}
+        label={""}
+        default={"showHistory"}
+      /> */}
     </div>
   );
 }
