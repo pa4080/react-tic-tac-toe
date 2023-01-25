@@ -11,7 +11,7 @@ export default function SwitchToggle(props) {
   return (
     <Switch.Group>
       <div className="flex items-center mb-6">
-        <Switch.Label className="mr-4">History order switch</Switch.Label>
+        <Switch.Label className="mr-4">{props.label}</Switch.Label>
         <Switch
           checked={enabled}
           onChange={setEnabled}

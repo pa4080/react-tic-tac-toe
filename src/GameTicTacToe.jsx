@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Board from "./components/Board";
+import PlayerDraw from "./components/PlayerDraw";
 import PlayerHeart from "./components/PlayerHeart";
 import PlayerStar from "./components/PlayerStar";
 import Status from "./components/Status";
@@ -68,18 +69,6 @@ function GameTicTacToe() {
     setStepNumber(history.length);
   }
 
-  function jumpTo(step) {
-    setStepNumber(step);
-  }
-
-  function getPlayer(xIsNext) {
-    return xIsNext ? <PlayerStar /> : <PlayerHeart />;
-  }
-
-  function handleSwitchOrder(order) {
-    setReverseHistory(order);
-  }
-
   /**
    * Render the output
    */
@@ -110,11 +99,19 @@ function GameTicTacToe() {
       >
         <button
           aria-label="History jump"
-          onClick={() => jumpTo(movie)}
+          onClick={() => setStepNumber(movie)}
           className="items-center flex w-full justify-between"
         >
           {description}
-          {movie ? getPlayer(!step.xIsNext) : ""}
+          {movie ? (
+            !step.xIsNext ? (
+              <PlayerStar />
+            ) : (
+              <PlayerHeart />
+            )
+          ) : (
+            <PlayerDraw />
+          )}
         </button>
       </li>
     );
@@ -150,7 +147,10 @@ function GameTicTacToe() {
       </button>
       <div className="game-info mt-10 pb-10">
         <div>
-          <SwitchToggle switch={(order) => handleSwitchOrder(order)} />
+          <SwitchToggle
+            switch={(order) => setReverseHistory(order)}
+            label={"History order switch"}
+          />
         </div>
 
         <div className="relative w-full cursor-default rounded-lg bg-white py-2 text-left shadow-md focus:outline-none">
