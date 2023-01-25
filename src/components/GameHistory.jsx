@@ -4,17 +4,15 @@ import PlayerDraw from "./PlayerDraw";
 import PlayerHeart from "./PlayerHeart";
 import PlayerStar from "./PlayerStar";
 
-export default function GameHistory({ history, current }) {
+export default function GameHistory({ history, current, setStepNumber }) {
   const [reverseHistory, setReverseHistory] = useState(false);
 
   const movies = history.map((step, movie, arr) => {
     const description = movie ? (
       <span className="items-center flex w-full justify-between pr-2">
+        <span>{movie === arr.length - 1 ? "Last move" : "Go to move"}:</span>
         <span>
-          {movie === arr.length - 1 ? "Last move" : "Go to move"}: #{movie}
-        </span>
-        <span>
-          [x:{step.x}, y:{step.y}]
+          #{movie}&nbsp; [x:{step.x}, y:{step.y}]
         </span>
       </span>
     ) : (

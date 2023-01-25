@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Board from "./components/GameBoard";
 import GameHistory from "./components/GameHistory";
+import RestartGame from "./components/RestartGame";
 import Status from "./components/Status";
 import { calculateWinner } from "./helpers/Calculate";
 
@@ -17,28 +18,7 @@ function GameTicTacToe() {
       number: 0
     }
   ]);
-
   const [stepNumber, setStepNumber] = useState(0);
-  const [resetGame, setResetGame] = useState(false);
-
-  function handleResetGame() {
-    setGameHistory([
-      {
-        squares: Array(9).fill(null),
-        x: null,
-        y: null,
-        xIsNext: true,
-        number: 0
-      }
-    ]);
-
-    setStepNumber(0);
-    setResetGame(true);
-
-    setTimeout(() => {
-      setResetGame(false);
-    }, 100);
-  }
 
   function handleClick(i, x, y) {
     const history = gameHistory.slice(0, stepNumber + 1); // reset the game from the history, whe continue
@@ -77,30 +57,27 @@ function GameTicTacToe() {
       <h1 className="text-3xl font-bold underline mb-10 text-gray-700">
         Tic Tac Toe
       </h1>
-      <div className="game-board">
-        <Board
-          squares={current.squares}
-          onClickGame={(i, x, y) => {
-            handleClick(i, x, y);
-          }}
-          lines={lines}
-        />
-      </div>
 
-      <div className="mt-6">
-        <Status winner={winner} xIsNext={current.xIsNext} />
-      </div>
+      <Board
+        squares={current.squares}
+        onClickGame={(i, x, y) => {
+          handleClick(i, x, y);
+        }}
+        lines={lines}
+      />
 
-      <button
-        aria-label="Restart Game"
-        onClick={() => handleResetGame()}
-        className={`py-3 px-6 text-center fit-content mt-6 rounded-lg font-bold text-lg text-white transition duration-100 ${
-          resetGame ? "bg-red-400 shadow-sm" : "bg-red-500 shadow-md"
-        }`}
-      >
-        Restart Game
-      </button>
-      <GameHistory history={history} current={current} />
+      <Status winner={winner} xIsNext={current.xIsNext} />
+
+      <RestartGame
+        setGameHistory={setGameHistory}
+        setStepNumber={setStepNumber}
+      />
+
+      <GameHistory
+        history={history}
+        current={current}
+        setStepNumber={setStepNumber}
+      />
     </div>
   );
 }
