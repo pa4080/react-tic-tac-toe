@@ -1,10 +1,7 @@
 import React, { useState } from "react";
 import Board from "./components/GameBoard";
-import PlayerDraw from "./components/PlayerDraw";
-import PlayerHeart from "./components/PlayerHeart";
-import PlayerStar from "./components/PlayerStar";
+import GameHistory from "./components/GameHistory";
 import Status from "./components/Status";
-import SwitchToggle from "./components/SwitchToggle";
 import { calculateWinner } from "./helpers/Calculate";
 
 // Disable the hot reload, https://stackoverflow.com/a/74817610/6543935
@@ -22,7 +19,6 @@ function GameTicTacToe() {
   ]);
 
   const [stepNumber, setStepNumber] = useState(0);
-  const [reverseHistory, setReverseHistory] = useState(false);
   const [resetGame, setResetGame] = useState(false);
 
   function handleResetGame() {
@@ -76,47 +72,6 @@ function GameTicTacToe() {
   const current = history[stepNumber];
   const { winner, lines } = calculateWinner(current.squares);
 
-  const movies = history.map((step, movie, arr) => {
-    const description = movie ? (
-      <span className="items-center flex w-full justify-between pr-2">
-        <span>
-          {movie === arr.length - 1 ? "Last move" : "Go to move"}: #{movie}
-        </span>
-        <span>
-          [x:{step.x}, y:{step.y}]
-        </span>
-      </span>
-    ) : (
-      <span>Go to game start</span>
-    );
-
-    return (
-      <li
-        key={movie}
-        className={`py-2 px-2 text-lg${
-          current.number === step.number ? " bg-orange-100" : ""
-        }`}
-      >
-        <button
-          aria-label="History jump"
-          onClick={() => setStepNumber(movie)}
-          className="items-center flex w-full justify-between"
-        >
-          {description}
-          {movie ? (
-            !step.xIsNext ? (
-              <PlayerStar />
-            ) : (
-              <PlayerHeart />
-            )
-          ) : (
-            <PlayerDraw />
-          )}
-        </button>
-      </li>
-    );
-  });
-
   return (
     <div className="game pt-10">
       <h1 className="text-3xl font-bold underline mb-10 text-gray-700">
@@ -145,18 +100,7 @@ function GameTicTacToe() {
       >
         Restart Game
       </button>
-      <div className="game-info mt-10 pb-10">
-        <div>
-          <SwitchToggle
-            switch={(order) => setReverseHistory(order)}
-            label={"History order switch"}
-          />
-        </div>
-
-        <div className="relative w-full cursor-default rounded-lg bg-white py-2 text-left shadow-md focus:outline-none">
-          <ol>{reverseHistory ? movies.reverse() : movies}</ol>
-        </div>
-      </div>
+      <GameHistory history={history} current={current} />
     </div>
   );
 }

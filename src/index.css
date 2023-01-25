@@ -31,7 +31,7 @@ body {
   flex-direction: column;
 }
 
-.game-info {
+.game-history {
   width: 260px;
   display: flex;
   flex-direction: row;
