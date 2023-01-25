@@ -7,7 +7,7 @@ Just refresh my React memory by their [Tutorial](https://reactjs.org/tutorial/tu
 
 **React references:**
 
-* [Local Storage in React: Create custom React LocalStorage Hook](https://www.robinwieruch.de/local-storage-react/)
+* [Local Storage in React: Create custom React LocalStorage Hook](https://www.robinwieruch.de/local-storage-react/#react-local-storage-hook)
 
 ## Install React within the project
 

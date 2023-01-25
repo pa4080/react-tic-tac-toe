@@ -3,14 +3,12 @@ import SwitchToggle from "./SwitchToggle";
 import PlayerDraw from "./PlayerDraw";
 import PlayerHeart from "./PlayerHeart";
 import PlayerStar from "./PlayerStar";
+import { useLocalStorage } from "../Hooks/LocalStorage";
 
 export default function GameHistory({ history, current, setStepNumber }) {
-  const [showHistory, setShowHistory] = useState(
-    JSON.parse(localStorage.getItem("HISTORY_SHOW")) || false
-  );
-  const [reverseHistory, setReverseHistory] = useState(
-    JSON.parse(localStorage.getItem("HISTORY_ORDER")) || false
-  );
+  const [showHistory, setShowHistory] = useLocalStorage("HIST_SHOW", false);
+  const [reverseHistory, setReverseHist] = useLocalStorage("HIST_ORDER", false);
+
   const movies = history.map((step, movie, arr) => {
     const description = movie ? (
       <span className="items-center flex w-full justify-between pr-2">
@@ -50,14 +48,6 @@ export default function GameHistory({ history, current, setStepNumber }) {
     );
   });
 
-  useEffect(() => {
-    localStorage.setItem("HISTORY_SHOW", JSON.stringify(showHistory));
-  }, [showHistory]);
-
-  useEffect(() => {
-    localStorage.setItem("HISTORY_ORDER", JSON.stringify(reverseHistory));
-  }, [reverseHistory]);
-
   return (
     <div className="game-history mt-10 pb-10">
       <SwitchToggle
@@ -69,7 +59,7 @@ export default function GameHistory({ history, current, setStepNumber }) {
       {showHistory && (
         <>
           <SwitchToggle
-            switch={(order) => setReverseHistory(order)}
+            switch={(order) => setReverseHist(order)}
             label={"History order"}
             default={reverseHistory}
           />
