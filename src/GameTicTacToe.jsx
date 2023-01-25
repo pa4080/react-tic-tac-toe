@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import Dropdown from "./components/Dropdown";
+import React, { useEffect, useState } from "react";
 import Board from "./components/GameBoard";
 import GameHistory from "./components/GameHistory";
 import RestartGame from "./components/RestartGame";
@@ -15,19 +14,32 @@ function GameTicTacToe() {
       squares: Array(9).fill(null),
       x: null,
       y: null,
-      xIsNext: true,
+      xIsNext: JSON.parse(localStorage.getItem("X_IS_NEXT")) ?? true,
       number: 0
     }
   ]);
   const [stepNumber, setStepNumber] = useState(0);
 
+  useEffect(() => {
+    if (winner) {
+      localStorage.removeItem("X_IS_NEXT");
+      localStorage.setItem(
+        "X_IS_NEXT",
+        JSON.stringify(winner === "X" ? true : false)
+      );
+    }
+  }, [stepNumber]);
+
+  useEffect(() => {}, []);
+
   function handleClick(i, x, y) {
     const history = gameHistory.slice(0, stepNumber + 1); // reset the game from the history, whe continue
     const current = history[history.length - 1]; // get the current game from the history
     const squares = [...current.squares]; // const squares = history.squares.slice();
+    const { winner } = calculateWinner(squares);
 
     // Ignoring a click if someone has won the game or if a Square is already filled
-    if (calculateWinner(squares).winner || squares[i]) return;
+    if (winner || squares[i]) return;
 
     squares[i] = current.xIsNext ? "X" : "O";
 

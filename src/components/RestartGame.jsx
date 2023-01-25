@@ -4,12 +4,13 @@ export default function RestartGame({ setGameHistory, setStepNumber }) {
   const [resetGame, setResetGame] = useState(false);
 
   function handleResetGame() {
+    const xIsNext = JSON.parse(localStorage.getItem("X_IS_NEXT")) ?? true;
     setGameHistory([
       {
         squares: Array(9).fill(null),
         x: null,
         y: null,
-        xIsNext: true,
+        xIsNext: xIsNext,
         number: 0
       }
     ]);

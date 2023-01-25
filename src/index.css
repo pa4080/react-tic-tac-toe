@@ -2,9 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+/* https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display */
 @font-face {
   font-family: "waltograph";
   src: url("../public/waltograph42.otf");
+  font-display: swap;
 }
 
 html,
