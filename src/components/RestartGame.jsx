@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 
-function RestartGame({ setGameHistory, setStepNumber }) {
+function restartGame({ setGameHistory, setStepNumber }) {
   setStepNumber(0);
-  // setNewGame(true);
 
   setGameHistory([
     {
@@ -20,7 +19,7 @@ function RestartGameButton(props) {
 
   function handleResetGame() {
     props.setNewGame(true);
-    RestartGame(props);
+    restartGame(props);
 
     setTimeout(() => {
       setBtnChanged((prev) => !prev);
@@ -50,5 +49,5 @@ function RestartGameButton(props) {
   );
 }
 
-export { RestartGame };
+export { restartGame };
 export default RestartGameButton;

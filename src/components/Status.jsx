@@ -3,7 +3,7 @@ import PlayerDraw from "./PlayerDraw";
 import PlayerHeart from "./PlayerHeart";
 import PlayerStar from "./PlayerStar";
 import ToggleSwitch from "./ToggleSwitch";
-import { RestartGame } from "./RestartGame";
+import { restartGame } from "./RestartGame";
 
 export default function Status({
   winner,
@@ -11,7 +11,8 @@ export default function Status({
   setGameHistory,
   stepNumber,
   setStepNumber,
-  newGame
+  newGame,
+  autoplay
 }) {
   let message = winner
     ? winner === "Draw"
@@ -19,6 +20,8 @@ export default function Status({
       : "Winner"
     : stepNumber
     ? "Next player"
+    : autoplay
+    ? "Choose player"
     : "First player";
 
   const whoIsNext = () => {
@@ -34,7 +37,8 @@ export default function Status({
   const switchPlayers = (trigger) => {
     localStorage.removeItem("X_IS_NEXT");
     localStorage.setItem("X_IS_NEXT", JSON.stringify(trigger));
-    RestartGame({ setGameHistory, setStepNumber });
+
+    restartGame({ setGameHistory, setStepNumber });
   };
 
   return (

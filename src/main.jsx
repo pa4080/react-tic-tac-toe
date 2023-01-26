@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import GameTicTacToe from "./GameTicTacToe";
+import Game from "./Game";
 
 /**
  * Get the dedicated in the HTML file element (with id="root")
@@ -11,7 +11,7 @@ import GameTicTacToe from "./GameTicTacToe";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <GameTicTacToe />
+    <Game />
   </React.StrictMode>
 );
 

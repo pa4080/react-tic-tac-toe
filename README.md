@@ -123,9 +123,10 @@ module.exports = {
 * [**Tailwind Docs: 1) Getting Set Up, 2) Using React, 3) Resources & assets**](https://tailwindui.com/documentation#react-installing-dependencies)
 * [How To Create React and Tailwind project with Vite by Abraham Anak Agung](https://anakagung.com/blog/how-to-create-react-and-tailwind-project-with-vite/)
 * [How to fix Unknown at rule @tailwindcss (unknownAtRules) in VS Code](https://flaviocopes.com/fix-unknown-at-rule-tailwind/)
-* [**Heroicons**: Beautiful hand-crafted SVG icons, by the makers of Tailwind CSS](https://heroicons.com/)
-* [**HeadlessUI**: Completely unstyled, fully accessible UI components, designed to integrate beautifully with Tailwind CSS.](https://headlessui.com/)
 * [How to use custom fonts in Tailwind CSS by Peter Ekene Eze on LogRocket](https://blog.logrocket.com/how-to-use-custom-fonts-tailwind-css/)
+* [**HeadlessUI**: Completely unstyled, fully accessible UI components, designed to integrate beautifully with Tailwind CSS.](https://headlessui.com/)
+* [**Heroicons**: Beautiful hand-crafted SVG icons, by the makers of Tailwind CSS](https://heroicons.com/)
+* [SVG Edit: How can I cut one shape inside another?](https://stackoverflow.com/questions/1983256/how-can-i-cut-one-shape-inside-another)
 
 ## Floating Components
 
@@ -145,3 +146,4 @@ module.exports = {
 
 * [React Popper on GitHub](https://github.com/floating-ui/react-popper)
 * [Made with React.js React Popper Review](https://madewithreactjs.com/react-popper)
+

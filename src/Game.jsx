@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
-import Board from "./components/GameBoard";
-import GameHistory from "./components/GameHistory";
+import GameAutoplay from "./components/Autoplay";
+import Board from "./components/Board";
+import GameHistory from "./components/History";
 import RestartGameButton from "./components/RestartGame";
 import Status from "./components/Status";
 import { calculateWinner } from "./helpers/Calculate";
+import { useLocalStorage } from "./Hooks/LocalStorage";
 
 // Disable the hot reload, https://stackoverflow.com/a/74817610/6543935
 // if (import.meta.hot) import.meta.hot.accept(() => import.meta.hot.invalidate());
 
-function GameTicTacToe() {
+function Game() {
   const [gameHistory, setGameHistory] = useState([
     {
       squares: Array(9).fill(null),
@@ -20,6 +22,7 @@ function GameTicTacToe() {
   ]);
   const [stepNumber, setStepNumber] = useState(0);
   const [newGame, setNewGame] = useState(true);
+  const [autoplay, setAutoplay] = useLocalStorage("AUTOPLAY", true);
 
   useEffect(() => {
     if (winner) {
@@ -65,7 +68,7 @@ function GameTicTacToe() {
   const { winner, lines } = calculateWinner(current.squares);
 
   return (
-    <div className="game pt-10">
+    <div className="game pt-10 pb-10">
       <h1 className="text-7xl font-waltograph mb-5 text-rose-500 opacity-60 hover:opacity-100 cursor-default hover:scale-110 transition-all">
         Tic Tac Toe
       </h1>
@@ -86,6 +89,7 @@ function GameTicTacToe() {
         setStepNumber={setStepNumber}
         stepNumber={stepNumber}
         newGame={newGame}
+        autoplay={autoplay}
       />
 
       <RestartGameButton
@@ -94,6 +98,8 @@ function GameTicTacToe() {
         winner={winner}
         setNewGame={setNewGame}
       />
+
+      <GameAutoplay autoplay={autoplay} setAutoplay={setAutoplay} />
 
       <GameHistory
         history={history}
@@ -104,4 +110,4 @@ function GameTicTacToe() {
   );
 }
 
-export default GameTicTacToe;
+export default Game;
