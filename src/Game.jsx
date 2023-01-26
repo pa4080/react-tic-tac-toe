@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import GameAutoplay from "./components/Autoplay";
+import Autoplay from "./components/Autoplay";
 import Board from "./components/Board";
-import GameHistory from "./components/History";
+import History from "./components/History";
 import RestartGameButton from "./components/RestartGame";
 import Status from "./components/Status";
 import { calculateWinner } from "./helpers/Calculate";
-import { useLocalStorage } from "./Hooks/LocalStorage";
+import { useLocalStorage } from "./hooks/LocalStorage";
 
 // Disable the hot reload, https://stackoverflow.com/a/74817610/6543935
 // if (import.meta.hot) import.meta.hot.accept(() => import.meta.hot.invalidate());
@@ -22,6 +22,10 @@ function Game() {
   ]);
   const [stepNumber, setStepNumber] = useState(0);
   const [newGame, setNewGame] = useState(true);
+  const [players, setPlayers] = useLocalStorage("PLAYERS", {
+    player1: "Star",
+    player2: "Heart"
+  });
   const [autoplay, setAutoplay] = useLocalStorage("AUTOPLAY", true);
 
   useEffect(() => {
@@ -29,10 +33,28 @@ function Game() {
       localStorage.removeItem("X_IS_NEXT");
       localStorage.setItem(
         "X_IS_NEXT",
-        JSON.stringify(winner === "X" ? true : false)
+        JSON.stringify(winner === players.player1 ? true : false)
       );
     }
   }, [stepNumber]);
+
+  useEffect(() => {
+    // Probably we may need to reset xIsNext completely here,
+    // when we change the mode from 1v1 1vPC...
+    // Actually 'xIsNext===true' now means 'players.player1' is next
+    // and in 1vPC mode 'players.player1' is the human.
+    setGameHistory([
+      {
+        squares: Array(9).fill(null),
+        x: null,
+        y: null,
+        xIsNext: JSON.parse(localStorage.getItem("X_IS_NEXT")) ?? true,
+        number: 0
+      }
+    ]);
+    setStepNumber(0);
+    setNewGame(true);
+  }, [players, autoplay]);
 
   function handleClick(i, x, y) {
     const history = gameHistory.slice(0, stepNumber + 1); // reset the game from the history, whe continue
@@ -43,7 +65,7 @@ function Game() {
     // Ignoring a click if someone has won the game or if a Square is already filled
     if (winner || squares[i]) return;
 
-    squares[i] = current.xIsNext ? "X" : "O";
+    squares[i] = current.xIsNext ? players.player1 : players.player2;
 
     setGameHistory(
       history.concat([
@@ -90,6 +112,8 @@ function Game() {
         stepNumber={stepNumber}
         newGame={newGame}
         autoplay={autoplay}
+        players={players}
+        setPlayers={setPlayers}
       />
 
       <RestartGameButton
@@ -99,12 +123,19 @@ function Game() {
         setNewGame={setNewGame}
       />
 
-      <GameAutoplay autoplay={autoplay} setAutoplay={setAutoplay} />
+      <Autoplay
+        autoplay={autoplay}
+        setAutoplay={setAutoplay}
+        players={players}
+        setPlayers={setPlayers}
+        xIsNext={current.xIsNext}
+      />
 
-      <GameHistory
+      <History
         history={history}
         current={current}
         setStepNumber={(movie) => setStepNumber(movie)}
+        players={players}
       />
     </div>
   );

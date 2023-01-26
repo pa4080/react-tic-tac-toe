@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 
 function restartGame({ setGameHistory, setStepNumber }) {
-  setStepNumber(0);
-
   setGameHistory([
     {
       squares: Array(9).fill(null),
@@ -12,6 +10,7 @@ function restartGame({ setGameHistory, setStepNumber }) {
       number: 0
     }
   ]);
+  setStepNumber(0);
 }
 
 function RestartGameButton(props) {

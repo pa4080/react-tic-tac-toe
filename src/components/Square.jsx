@@ -1,6 +1,5 @@
 import React from "react";
-import PlayerHeart from "./PlayerHeart";
-import PlayerStar from "./PlayerStar";
+import PlayersMap from "./PlayersMap";
 
 function Square(props) {
   return (
@@ -9,8 +8,7 @@ function Square(props) {
       className={`square rounded-lg ${props.highlight ? "bg-orange-200" : ""}`}
       onMouseDown={props.onClickBoard}
     >
-      {props.value === "X" && <PlayerStar />}
-      {props.value === "O" && <PlayerHeart />}
+      {PlayersMap(props.player)}
     </button>
   );
 }

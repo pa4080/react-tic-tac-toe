@@ -1,9 +1,7 @@
-import React, { useState } from "react";
-import PlayerDraw from "./PlayerDraw";
-import PlayerHeart from "./PlayerHeart";
-import PlayerStar from "./PlayerStar";
+import React from "react";
 import ToggleSwitch from "./ToggleSwitch";
 import { restartGame } from "./RestartGame";
+import PlayersMap from "./PlayersMap";
 
 export default function Status({
   winner,
@@ -12,9 +10,11 @@ export default function Status({
   stepNumber,
   setStepNumber,
   newGame,
-  autoplay
+  autoplay,
+  players,
+  setPlayers
 }) {
-  let message = winner
+  const message = winner
     ? winner === "Draw"
       ? "Draw"
       : "Winner"
@@ -25,13 +25,10 @@ export default function Status({
     : "First player";
 
   const whoIsNext = () => {
-    return xIsNext ? <PlayerStar /> : <PlayerHeart />;
-  };
-
-  const whoIsWinner = () => {
-    if (winner === "X") return <PlayerStar />;
-    if (winner === "O") return <PlayerHeart />;
-    return <PlayerDraw />;
+    if (autoplay && newGame) {
+      return PlayersMap(players.player1);
+    }
+    return xIsNext ? PlayersMap(players.player1) : PlayersMap(players.player2);
   };
 
   const switchPlayers = (trigger) => {
@@ -41,6 +38,28 @@ export default function Status({
     restartGame({ setGameHistory, setStepNumber });
   };
 
+  const selectPlayer = (trigger) => {
+    let newPlayers;
+
+    if (autoplay && newGame) {
+      newPlayers = {
+        player1: trigger ? "Star" : "Heart",
+        player2: "Cog"
+      };
+    } else {
+      newPlayers = {
+        player1: "Star",
+        player2: "Heart"
+      };
+    }
+
+    setPlayers(newPlayers);
+  };
+
+  function whoIsWinner() {
+    return PlayersMap(winner);
+  }
+
   return (
     <div className=" inline-flex items-center font-sans text-xl mb-2 mt-8 relative">
       {message}&nbsp;
@@ -48,15 +67,28 @@ export default function Status({
       {winner && whoIsWinner()}
       {!stepNumber && newGame && (
         <div className="absolute -top-4 -right-8 scale-75">
-          <ToggleSwitch
-            switch={(trigger) => {
-              switchPlayers(trigger);
-            }}
-            label={""}
-            default={xIsNext}
-            colorLeft={"bg-rose-300"}
-            colorRight={"bg-gold-primary"}
-          />
+          {!autoplay && (
+            <ToggleSwitch
+              switch={(trigger) => {
+                switchPlayers(trigger);
+              }}
+              label={""}
+              default={xIsNext}
+              colorLeft={"bg-rose-300"}
+              colorRight={"bg-gold-primary"}
+            />
+          )}
+          {autoplay && (
+            <ToggleSwitch
+              switch={(trigger) => {
+                selectPlayer(trigger);
+              }}
+              label={""}
+              default={players.player1 === "Star"}
+              colorLeft={"bg-rose-300"}
+              colorRight={"bg-gold-primary"}
+            />
+          )}
         </div>
       )}
     </div>

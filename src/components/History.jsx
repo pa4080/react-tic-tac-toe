@@ -1,11 +1,9 @@
 import React from "react";
 import ToggleSwitch from "./ToggleSwitch";
-import PlayerDraw from "./PlayerDraw";
-import PlayerHeart from "./PlayerHeart";
-import PlayerStar from "./PlayerStar";
-import { useLocalStorage } from "../Hooks/LocalStorage";
+import { useLocalStorage } from "../hooks/LocalStorage";
+import PlayersMap from "./PlayersMap";
 
-export default function GameHistory({ history, current, setStepNumber }) {
+export default function History({ history, current, setStepNumber, players }) {
   const [showHistory, setShowHistory] = useLocalStorage("HIST_SHOW", false);
   const [reverseHistory, setReverseHist] = useLocalStorage("HIST_ORDER", false);
 
@@ -34,15 +32,11 @@ export default function GameHistory({ history, current, setStepNumber }) {
           className="items-center flex w-full justify-between"
         >
           {description}
-          {movie ? (
-            !step.xIsNext ? (
-              <PlayerStar />
-            ) : (
-              <PlayerHeart />
-            )
-          ) : (
-            <PlayerDraw />
-          )}
+          {movie
+            ? !step.xIsNext
+              ? PlayersMap(players.player1)
+              : PlayersMap(players.player2)
+            : PlayersMap("Draw")}
         </button>
       </li>
     );

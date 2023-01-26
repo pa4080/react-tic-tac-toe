@@ -5,7 +5,7 @@ function Board(props) {
   function renderSquare(i, x, y) {
     return (
       <Square
-        value={props.squares[i]}
+        player={props.squares[i]}
         onClickBoard={() => {
           props.onClickGame(i, x, y);
           props.setNewGame(false);
