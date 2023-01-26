@@ -49,7 +49,7 @@ export default function GameHistory({ history, current, setStepNumber }) {
   });
 
   return (
-    <div className="game-history mt-10 pb-10">
+    <div className="game-history">
       <ToggleSwitch
         switch={(show) => setShowHistory(show)}
         label={"Show history"}
@@ -58,14 +58,14 @@ export default function GameHistory({ history, current, setStepNumber }) {
 
       {showHistory && (
         <>
+          <div className="relative w-full cursor-default rounded-lg bg-white py-2 text-left shadow-md focus:outline-none mb-7">
+            <ol>{reverseHistory ? movies.reverse() : movies}</ol>
+          </div>
           <ToggleSwitch
             switch={(order) => setReverseHist(order)}
             label={"History order"}
             default={reverseHistory}
           />
-          <div className="relative w-full cursor-default rounded-lg bg-white py-2 text-left shadow-md focus:outline-none">
-            <ol>{reverseHistory ? movies.reverse() : movies}</ol>
-          </div>
         </>
       )}
     </div>

@@ -38,7 +38,7 @@ export default function Status({
   };
 
   return (
-    <div className="inline-flex items-center font-sans text-xl mb-2 mt-8 relative">
+    <div className=" inline-flex items-center font-sans text-xl mb-2 mt-8 relative">
       {message}&nbsp;
       {!winner && whoIsNext()}
       {winner && whoIsWinner()}
@@ -50,6 +50,8 @@ export default function Status({
             }}
             label={""}
             default={xIsNext}
+            colorLeft={"bg-rose-300"}
+            colorRight={"bg-gold-primary"}
           />
         </div>
       )}

@@ -28,23 +28,25 @@ function RestartGameButton(props) {
   }
 
   return (
-    <button
-      aria-label="Restart Game or Next Game"
-      onMouseUp={handleResetGame}
-      onMouseDown={() => {
-        setBtnChanged((prev) => !prev);
-      }}
-      onMouseLeave={() => {
-        setTimeout(() => {
-          setBtnChanged(false);
-        }, 150);
-      }}
-      className={`py-3 px-6 text-center fit-content mt-6 rounded-lg font-bold text-lg text-white transition duration-100 ${
-        btnChanged ? "bg-rose-300 shadow-sm" : "bg-rose-500 shadow-md"
-      }`}
-    >
-      {props.winner ? "New Game" : "Restart Game"}
-    </button>
+    <div className="mt-6 mb-10">
+      <button
+        aria-label="Restart Game or Next Game"
+        onMouseUp={handleResetGame}
+        onMouseDown={() => {
+          setBtnChanged((prev) => !prev);
+        }}
+        onMouseLeave={() => {
+          setTimeout(() => {
+            setBtnChanged(false);
+          }, 150);
+        }}
+        className={`py-3 px-6 text-center fit-content rounded-lg font-bold text-lg text-white transition duration-100 ${
+          btnChanged ? "bg-rose-300 shadow-sm" : "bg-rose-500 shadow-md"
+        }`}
+      >
+        {props.winner ? "New Game" : "Restart Game"}
+      </button>
+    </div>
   );
 }
 

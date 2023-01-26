@@ -4,6 +4,9 @@ import { Switch } from "@headlessui/react";
 export default function ToggleSwitch(props) {
   const [enabled, setEnabled] = useState(props.default || false);
 
+  const colorLeft = props.colorLeft ?? "bg-gray-300";
+  const colorRight = props.colorRight ?? "bg-orange-300";
+
   useEffect(() => {
     props.switch(enabled);
   }, [enabled]);
@@ -16,7 +19,7 @@ export default function ToggleSwitch(props) {
           checked={enabled}
           onChange={setEnabled}
           className={`${
-            enabled ? "bg-orange-300" : "bg-rose-300"
+            enabled ? colorRight : colorLeft
           } relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none`}
         >
           <span
