@@ -34,4 +34,8 @@ function calculateWinner(squares) {
   };
 }
 
-export { calculateWinner };
+function calculateNextMovie(squares) {
+  console.log(squares);
+}
+
+export { calculateWinner, calculateNextMovie };

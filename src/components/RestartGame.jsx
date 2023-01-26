@@ -1,24 +1,10 @@
 import React, { useState } from "react";
 
-function restartGame({ setGameHistory, setStepNumber }) {
-  setGameHistory([
-    {
-      squares: Array(9).fill(null),
-      x: null,
-      y: null,
-      xIsNext: JSON.parse(localStorage.getItem("X_IS_NEXT")) ?? true,
-      number: 0
-    }
-  ]);
-  setStepNumber(0);
-}
-
 function RestartGameButton(props) {
   const [btnChanged, setBtnChanged] = useState(false);
 
   function handleResetGame() {
     props.setNewGame(true);
-    restartGame(props);
 
     setTimeout(() => {
       setBtnChanged((prev) => !prev);
@@ -48,5 +34,4 @@ function RestartGameButton(props) {
   );
 }
 
-export { restartGame };
 export default RestartGameButton;

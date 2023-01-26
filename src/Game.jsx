@@ -11,7 +11,7 @@ import { useLocalStorage } from "./hooks/LocalStorage";
 // if (import.meta.hot) import.meta.hot.accept(() => import.meta.hot.invalidate());
 
 function Game() {
-  const [gameHistory, setGameHistory] = useState([
+  const initState = [
     {
       squares: Array(9).fill(null),
       x: null,
@@ -19,42 +19,43 @@ function Game() {
       xIsNext: JSON.parse(localStorage.getItem("X_IS_NEXT")) ?? true,
       number: 0
     }
-  ]);
+  ];
+
+  const [gameHistory, setGameHistory] = useState(initState);
   const [stepNumber, setStepNumber] = useState(0);
   const [newGame, setNewGame] = useState(true);
+
+  const [autoplay, setAutoplay] = useLocalStorage("AUTOPLAY", true);
+  const [isXNext, setIsXNext] = useLocalStorage("X_IS_NEXT", true);
   const [players, setPlayers] = useLocalStorage("PLAYERS", {
     player1: "Star",
     player2: "Heart"
   });
-  const [autoplay, setAutoplay] = useLocalStorage("AUTOPLAY", true);
 
   useEffect(() => {
     if (winner) {
-      localStorage.removeItem("X_IS_NEXT");
-      localStorage.setItem(
-        "X_IS_NEXT",
-        JSON.stringify(winner === players.player1 ? true : false)
-      );
+      setIsXNext(winner === players.player1 ? true : false);
     }
   }, [stepNumber]);
 
+  /**
+   * Probably we may need to reset xIsNext completely here,
+   * when we change the mode from 1v1 1vPC...
+   * Actually 'xIsNext===true' now means 'players.player1' is next
+   * and in 1vPC mode 'players.player1' is the human.
+   */
   useEffect(() => {
-    // Probably we may need to reset xIsNext completely here,
-    // when we change the mode from 1v1 1vPC...
-    // Actually 'xIsNext===true' now means 'players.player1' is next
-    // and in 1vPC mode 'players.player1' is the human.
-    setGameHistory([
-      {
-        squares: Array(9).fill(null),
-        x: null,
-        y: null,
-        xIsNext: JSON.parse(localStorage.getItem("X_IS_NEXT")) ?? true,
-        number: 0
-      }
-    ]);
+    setGameHistory(initState);
     setStepNumber(0);
     setNewGame(true);
   }, [players, autoplay]);
+
+  useEffect(() => {
+    if (newGame) {
+      setGameHistory(initState);
+      setStepNumber(0);
+    }
+  }, [newGame, isXNext]);
 
   function handleClick(i, x, y) {
     const history = gameHistory.slice(0, stepNumber + 1); // reset the game from the history, whe continue
@@ -66,6 +67,8 @@ function Game() {
     if (winner || squares[i]) return;
 
     squares[i] = current.xIsNext ? players.player1 : players.player2;
+
+    // squares[4] = !current.xIsNext ? players.player1 : players.player2;
 
     setGameHistory(
       history.concat([
@@ -107,13 +110,12 @@ function Game() {
       <Status
         winner={winner}
         xIsNext={current.xIsNext}
-        setGameHistory={setGameHistory}
-        setStepNumber={setStepNumber}
         stepNumber={stepNumber}
         newGame={newGame}
         autoplay={autoplay}
         players={players}
         setPlayers={setPlayers}
+        setIsXNext={setIsXNext}
       />
 
       <RestartGameButton

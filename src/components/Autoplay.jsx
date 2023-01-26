@@ -1,5 +1,5 @@
 import React from "react";
-import PlayerCog from "./PlayerCog";
+import PlayerCog from "./players/PlayerCog";
 import ToggleSwitch from "./ToggleSwitch";
 
 export default function GameAutoplay({

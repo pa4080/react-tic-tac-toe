@@ -1,18 +1,17 @@
 import React from "react";
 import ToggleSwitch from "./ToggleSwitch";
-import { restartGame } from "./RestartGame";
+// import { restartGame } from "./RestartGame";
 import PlayersMap from "./PlayersMap";
 
 export default function Status({
   winner,
   xIsNext,
-  setGameHistory,
   stepNumber,
-  setStepNumber,
   newGame,
   autoplay,
   players,
-  setPlayers
+  setPlayers,
+  setIsXNext
 }) {
   const message = winner
     ? winner === "Draw"
@@ -32,10 +31,7 @@ export default function Status({
   };
 
   const switchPlayers = (trigger) => {
-    localStorage.removeItem("X_IS_NEXT");
-    localStorage.setItem("X_IS_NEXT", JSON.stringify(trigger));
-
-    restartGame({ setGameHistory, setStepNumber });
+    setIsXNext(trigger);
   };
 
   const selectPlayer = (trigger) => {

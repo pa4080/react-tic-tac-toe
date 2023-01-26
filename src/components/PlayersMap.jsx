@@ -1,8 +1,8 @@
 import React from "react";
-import PlayerCog from "./PlayerCog";
-import PlayerDraw from "./PlayerDraw";
-import PlayerHeart from "./PlayerHeart";
-import PlayerStar from "./PlayerStar";
+import PlayerCog from "./players/PlayerCog";
+import PlayerDraw from "./players/PlayerDraw";
+import PlayerHeart from "./players/PlayerHeart";
+import PlayerStar from "./players/PlayerStar";
 
 export default function PlayersMap(player) {
   if (!player) return;
