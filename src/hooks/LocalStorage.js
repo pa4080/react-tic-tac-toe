@@ -4,7 +4,7 @@
  */
 import { useEffect, useState } from "react";
 
-function useLocalStorage(storageKey, fallbackState) {
+function useLocalStorage(storageKey, fallbackState = true) {
   const [value, setValue] = useState(
     JSON.parse(localStorage.getItem(storageKey)) ?? fallbackState
   );

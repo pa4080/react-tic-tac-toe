@@ -11,10 +11,11 @@ export default function GameAutoplay({
 }) {
   function handleSetAutoplay(trigger) {
     let newPlayers;
+    let newPlayer1 = xIsNext && players.player1 === "Star" ? "Star" : "Heart";
 
     if (trigger) {
       newPlayers = {
-        player1: xIsNext ? players.player1 : players.player2,
+        player1: newPlayer1,
         player2: "Cog"
       };
     } else {

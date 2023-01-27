@@ -1,16 +1,16 @@
 import React from "react";
 import Square from "./Square";
 
-function Board(props) {
+function Board({ squares, onClickGame, lines, setNewGame }) {
   function renderSquare(i, x, y) {
     return (
       <Square
-        player={props.squares[i]}
+        player={squares[i]}
         onClickBoard={() => {
-          props.onClickGame(i, x, y);
-          props.setNewGame(false);
+          onClickGame(i, x, y);
+          setNewGame(false);
         }}
-        highlight={Array.isArray(props.lines) && props.lines.includes(i)}
+        highlight={Array.isArray(lines) && lines.includes(i)}
       />
     );
   }

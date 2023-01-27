@@ -1,14 +1,14 @@
 import React from "react";
 import PlayersMap from "./PlayersMap";
 
-function Square(props) {
+function Square({ highlight, onClickBoard, player }) {
   return (
     <button
       aria-label="Game board square"
-      className={`square rounded-lg ${props.highlight ? "bg-orange-200" : ""}`}
-      onMouseDown={props.onClickBoard}
+      className={`square rounded-lg ${highlight ? "bg-orange-200" : ""}`}
+      onMouseDown={onClickBoard}
     >
-      {PlayersMap(props.player)}
+      {PlayersMap(player)}
     </button>
   );
 }

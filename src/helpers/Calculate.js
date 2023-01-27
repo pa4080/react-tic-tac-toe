@@ -9,6 +9,18 @@ const lines = [
   [2, 4, 6]
 ];
 
+const squaresMapXY = {
+  sq0: [1, 1],
+  sq1: [2, 1],
+  sq2: [3, 1],
+  sq3: [1, 2],
+  sq4: [2, 2],
+  sq5: [3, 2],
+  sq6: [1, 3],
+  sq7: [2, 3],
+  sq8: [3, 3]
+};
+
 function calculateWinner(squares) {
   for (let i = 0; i < lines.length; i++) {
     const [a, b, c] = lines[i];
@@ -34,8 +46,37 @@ function calculateWinner(squares) {
   };
 }
 
-function calculateNextMovie(squares) {
-  console.log(squares);
+function calculateNextMovie(squares = Array(9).fill(null)) {
+  const available = [];
+
+  squares.forEach((el, i) => {
+    if (!el) {
+      available.push(i);
+    }
+  });
+
+  let el;
+
+  if (available.length > 5) {
+    if (available.includes(4)) {
+      el = 4;
+    } else if (available.includes(0)) {
+      el = 0;
+    } else if (available.includes(2)) {
+      el = 2;
+    } else if (available.includes(6)) {
+      el = 6;
+    } else if (available.includes(8)) {
+      el = 8;
+    } else {
+      el = available[Math.floor(Math.random() * available.length)];
+    }
+  } else {
+    el = available[Math.floor(Math.random() * available.length)];
+  }
+
+  if (squaresMapXY[`sq${el}`]) return [el, ...squaresMapXY[`sq${el}`]];
+  return [null, null, null];
 }
 
 export { calculateWinner, calculateNextMovie };

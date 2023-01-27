@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import Autoplay from "./components/Autoplay";
 import Board from "./components/Board";
 import History from "./components/History";
-import RestartGameButton from "./components/RestartGame";
+import RestartGame from "./components/RestartGame";
 import Status from "./components/Status";
-import { calculateWinner } from "./helpers/Calculate";
+import { calculateNextMovie, calculateWinner } from "./helpers/Calculate";
 import { useLocalStorage } from "./hooks/LocalStorage";
 
 // Disable the hot reload, https://stackoverflow.com/a/74817610/6543935
@@ -26,7 +26,7 @@ function Game() {
   const [newGame, setNewGame] = useState(true);
 
   const [autoplay, setAutoplay] = useLocalStorage("AUTOPLAY", true);
-  const [isXNext, setIsXNext] = useLocalStorage("X_IS_NEXT", true);
+  const [nextPlayer, setNextPlayer] = useLocalStorage("X_IS_NEXT", true);
   const [players, setPlayers] = useLocalStorage("PLAYERS", {
     player1: "Star",
     player2: "Heart"
@@ -34,7 +34,7 @@ function Game() {
 
   useEffect(() => {
     if (winner) {
-      setIsXNext(winner === players.player1 ? true : false);
+      setNextPlayer(winner === players.player1 ? true : false);
     }
   }, [stepNumber]);
 
@@ -55,20 +55,38 @@ function Game() {
       setGameHistory(initState);
       setStepNumber(0);
     }
-  }, [newGame, isXNext]);
+  }, [newGame, nextPlayer]);
 
   function handleClick(i, x, y) {
-    const history = gameHistory.slice(0, stepNumber + 1); // reset the game from the history, whe continue
+    let history = gameHistory.slice(0, stepNumber + 1); // reset the game from the history, whe continue
     const current = history[history.length - 1]; // get the current game from the history
     const squares = [...current.squares]; // const squares = history.squares.slice();
-    const { winner } = calculateWinner(squares);
+    let { winner } = calculateWinner(squares);
 
     // Ignoring a click if someone has won the game or if a Square is already filled
     if (winner || squares[i]) return;
 
-    squares[i] = current.xIsNext ? players.player1 : players.player2;
+    let whoIsNext;
 
-    // squares[4] = !current.xIsNext ? players.player1 : players.player2;
+    if (autoplay) {
+      squares[i] = players.player1;
+      history = history.concat([
+        {
+          squares: squares,
+          x: x,
+          y: y,
+          xIsNext: false,
+          number: history.length
+        }
+      ]);
+
+      [i, x, y] = calculateNextMovie(squares);
+      squares[i] = players.player2;
+      whoIsNext = true;
+    } else {
+      squares[i] = current.xIsNext ? players.player1 : players.player2;
+      whoIsNext = !current.xIsNext;
+    }
 
     setGameHistory(
       history.concat([
@@ -76,7 +94,7 @@ function Game() {
           squares: squares,
           x: x,
           y: y,
-          xIsNext: !current.xIsNext,
+          xIsNext: whoIsNext,
           number: history.length
         }
       ])
@@ -91,6 +109,14 @@ function Game() {
   const history = [...gameHistory];
   const current = history[stepNumber];
   const { winner, lines } = calculateWinner(current.squares);
+
+  if (newGame) {
+    current.xIsNext = nextPlayer;
+    // if (nextPlayer === "Cog") {
+    //   const nextMove = calculateNextMovie();
+    //   handleClick(nextMove, 0, 0);
+    // }
+  }
 
   return (
     <div className="game pt-10 pb-10">
@@ -112,17 +138,19 @@ function Game() {
         xIsNext={current.xIsNext}
         stepNumber={stepNumber}
         newGame={newGame}
+        setNewGame={setNewGame}
         autoplay={autoplay}
         players={players}
         setPlayers={setPlayers}
-        setIsXNext={setIsXNext}
+        setNextPlayer={setNextPlayer}
       />
 
-      <RestartGameButton
-        setGameHistory={setGameHistory}
-        setStepNumber={setStepNumber}
-        winner={winner}
+      <RestartGame
         setNewGame={setNewGame}
+        winner={winner}
+        handleClick={handleClick}
+        autoplay={autoplay}
+        players={players}
       />
 
       <Autoplay
@@ -130,7 +158,7 @@ function Game() {
         setAutoplay={setAutoplay}
         players={players}
         setPlayers={setPlayers}
-        xIsNext={current.xIsNext}
+        xIsNext={nextPlayer}
       />
 
       <History

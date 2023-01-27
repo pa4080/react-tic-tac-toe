@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 
-function RestartGameButton(props) {
+function RestartGame({ setNewGame, winner, autoplay, handleClick, players }) {
   const [btnChanged, setBtnChanged] = useState(false);
 
   function handleResetGame() {
-    props.setNewGame(true);
+    setNewGame(true);
 
     setTimeout(() => {
       setBtnChanged((prev) => !prev);
@@ -28,10 +28,10 @@ function RestartGameButton(props) {
           btnChanged ? "bg-rose-300 shadow-sm" : "bg-rose-500 shadow-md"
         }`}
       >
-        {props.winner ? "New Game" : "Restart Game"}
+        {winner ? "New Game" : "Restart Game"}
       </button>
     </div>
   );
 }
 
-export default RestartGameButton;
+export default RestartGame;

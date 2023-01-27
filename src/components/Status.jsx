@@ -8,10 +8,11 @@ export default function Status({
   xIsNext,
   stepNumber,
   newGame,
+  setNewGame,
   autoplay,
   players,
   setPlayers,
-  setIsXNext
+  setNextPlayer
 }) {
   const message = winner
     ? winner === "Draw"
@@ -31,24 +32,25 @@ export default function Status({
   };
 
   const switchPlayers = (trigger) => {
-    setIsXNext(trigger);
+    setNextPlayer(trigger);
   };
 
   const selectPlayer = (trigger) => {
     let newPlayers;
 
-    if (autoplay && newGame) {
+    if (trigger) {
       newPlayers = {
-        player1: trigger ? "Star" : "Heart",
+        player1: "Star",
         player2: "Cog"
       };
     } else {
       newPlayers = {
-        player1: "Star",
-        player2: "Heart"
+        player1: "Heart",
+        player2: "Cog"
       };
     }
 
+    // setNewGame(true);
     setPlayers(newPlayers);
   };
 
