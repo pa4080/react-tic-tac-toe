@@ -4,7 +4,7 @@ import Board from "./components/Board";
 import History from "./components/History";
 import RestartGame from "./components/RestartGame";
 import Status from "./components/Status";
-import { calculateNextMovie, calculateWinner } from "./helpers/Calculate";
+import { calculateNextMove, calculateWinner } from "./helpers/Calculate";
 import { useLocalStorage } from "./hooks/LocalStorage";
 
 // Disable the hot reload, https://stackoverflow.com/a/74817610/6543935
@@ -33,8 +33,32 @@ function Game() {
   });
 
   useEffect(() => {
-    if (winner) {
+    if (winner && winner !== "Draw") {
       setNextPlayer(winner === players.player1 ? true : false);
+    }
+
+    // This is the actual autoplay logic
+    if (autoplay) {
+      const current = history[history.length - 1];
+      const squares = current.squares;
+      const xIsNext = current.xIsNext;
+      if (!xIsNext) {
+        const [i, x, y] = calculateNextMove(squares);
+        const square = document.getElementById(`sq-${i}`);
+        const overlay = document.getElementById("game-board");
+
+        if (square) {
+          overlay.classList.add("computer-play");
+
+          setTimeout(() => {
+            square.click();
+
+            setTimeout(() => {
+              overlay.classList.remove("computer-play");
+            }, 200);
+          }, 1000);
+        }
+      }
     }
   }, [stepNumber]);
 
@@ -44,12 +68,16 @@ function Game() {
    * Actually 'xIsNext===true' now means 'players.player1' is next
    * and in 1vPC mode 'players.player1' is the human.
    */
+  // Switch between 1v1 and 1vPC
   useEffect(() => {
-    setGameHistory(initState);
-    setStepNumber(0);
-    setNewGame(true);
+    if (newGame) {
+      setGameHistory(initState);
+      setStepNumber(0);
+      setNewGame(true);
+    }
   }, [players, autoplay]);
 
+  // Press the Restart Game button
   useEffect(() => {
     if (newGame) {
       setGameHistory(initState);
@@ -66,27 +94,7 @@ function Game() {
     // Ignoring a click if someone has won the game or if a Square is already filled
     if (winner || squares[i]) return;
 
-    let whoIsNext;
-
-    if (autoplay) {
-      squares[i] = players.player1;
-      history = history.concat([
-        {
-          squares: squares,
-          x: x,
-          y: y,
-          xIsNext: false,
-          number: history.length
-        }
-      ]);
-
-      [i, x, y] = calculateNextMovie(squares);
-      squares[i] = players.player2;
-      whoIsNext = true;
-    } else {
-      squares[i] = current.xIsNext ? players.player1 : players.player2;
-      whoIsNext = !current.xIsNext;
-    }
+    squares[i] = current.xIsNext ? players.player1 : players.player2;
 
     setGameHistory(
       history.concat([
@@ -94,7 +102,7 @@ function Game() {
           squares: squares,
           x: x,
           y: y,
-          xIsNext: whoIsNext,
+          xIsNext: !current.xIsNext,
           number: history.length
         }
       ])
@@ -112,10 +120,6 @@ function Game() {
 
   if (newGame) {
     current.xIsNext = nextPlayer;
-    // if (nextPlayer === "Cog") {
-    //   const nextMove = calculateNextMovie();
-    //   handleClick(nextMove, 0, 0);
-    // }
   }
 
   return (
@@ -159,6 +163,7 @@ function Game() {
         players={players}
         setPlayers={setPlayers}
         xIsNext={nextPlayer}
+        setNewGame={setNewGame}
       />
 
       <History

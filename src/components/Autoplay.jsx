@@ -7,7 +7,8 @@ export default function GameAutoplay({
   setAutoplay,
   players,
   setPlayers,
-  xIsNext
+  xIsNext,
+  setNewGame
 }) {
   function handleSetAutoplay(trigger) {
     let newPlayers;
@@ -27,6 +28,7 @@ export default function GameAutoplay({
 
     setPlayers(newPlayers);
     setAutoplay(trigger);
+    setNewGame((prev) => !prev);
   }
 
   return (

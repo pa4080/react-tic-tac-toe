@@ -11,6 +11,9 @@ function Board({ squares, onClickGame, lines, setNewGame }) {
           setNewGame(false);
         }}
         highlight={Array.isArray(lines) && lines.includes(i)}
+        i={i}
+        x={x}
+        y={y}
       />
     );
   }
@@ -18,7 +21,7 @@ function Board({ squares, onClickGame, lines, setNewGame }) {
   let index = 0;
 
   return (
-    <div className="game-board">
+    <div id="game-board" className="">
       <div className="board rounded-lg shadow-xl">
         <table className="board-table rounded-lg bg-white">
           <tbody>

@@ -46,11 +46,11 @@ function calculateWinner(squares) {
   };
 }
 
-function calculateNextMovie(squares = Array(9).fill(null)) {
+function calculateNextMove(squares = Array(9).fill(null), player = "Cog") {
   const available = [];
 
-  squares.forEach((el, i) => {
-    if (!el) {
+  squares.forEach((element, i) => {
+    if (!element) {
       available.push(i);
     }
   });
@@ -79,4 +79,4 @@ function calculateNextMovie(squares = Array(9).fill(null)) {
   return [null, null, null];
 }
 
-export { calculateWinner, calculateNextMovie };
+export { calculateWinner, calculateNextMove };
