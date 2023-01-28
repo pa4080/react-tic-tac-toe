@@ -46,33 +46,172 @@ function calculateWinner(squares) {
   };
 }
 
-function calculateNextMove(squares = Array(9).fill(null), player = "Cog") {
-  const available = [];
+function calculateNextMove(
+  squares = Array(9).fill(null),
+  player = "Star",
+  computer = "Cog"
+) {
+  const availableIndex = [];
+  const availablePlayers = [];
+  const takenIndex = [];
+  const takenPlayers = [];
 
   squares.forEach((element, i) => {
-    if (!element) {
-      available.push(i);
+    if (element) {
+      takenIndex.push(i);
+      takenPlayers.push(element);
+    } else {
+      availableIndex.push(i);
+      availablePlayers.push(element);
     }
   });
 
   let el;
 
-  if (available.length > 5) {
-    if (available.includes(4)) {
+  // < 3 | < 4 ... id too hard :)
+  if (takenPlayers.length < 3) {
+    if (availableIndex.includes(4)) {
       el = 4;
-    } else if (available.includes(0)) {
+    } else if (availableIndex.includes(0)) {
       el = 0;
-    } else if (available.includes(2)) {
+    } else if (availableIndex.includes(2)) {
       el = 2;
-    } else if (available.includes(6)) {
+    } else if (availableIndex.includes(6)) {
       el = 6;
-    } else if (available.includes(8)) {
+    } else if (availableIndex.includes(8)) {
       el = 8;
     } else {
-      el = available[Math.floor(Math.random() * available.length)];
+      el = availableIndex[Math.floor(Math.random() * availableIndex.length)];
     }
   } else {
-    el = available[Math.floor(Math.random() * available.length)];
+    el = availableIndex[Math.floor(Math.random() * availableIndex.length)];
+
+    for (let i = 0; i < lines.length; i++) {
+      const [a, b, c] = lines[i];
+
+      let choose = null;
+
+      // This should be a loop
+      if (
+        !choose &&
+        availableIndex.includes(a) &&
+        computer === squares[b] &&
+        computer === squares[c]
+      ) {
+        choose = a;
+      }
+
+      if (
+        !choose &&
+        availableIndex.includes(a) &&
+        computer === squares[c] &&
+        computer === squares[b]
+      ) {
+        choose = a;
+      }
+
+      if (
+        !choose &&
+        availableIndex.includes(b) &&
+        computer === squares[a] &&
+        computer === squares[c]
+      ) {
+        choose = b;
+      }
+
+      if (
+        !choose &&
+        availableIndex.includes(b) &&
+        computer === squares[c] &&
+        computer === squares[a]
+      ) {
+        choose = b;
+      }
+
+      if (
+        !choose &&
+        availableIndex.includes(c) &&
+        computer === squares[b] &&
+        computer === squares[a]
+      ) {
+        choose = c;
+      }
+
+      if (
+        !choose &&
+        availableIndex.includes(c) &&
+        computer === squares[a] &&
+        computer === squares[b]
+      ) {
+        choose = c;
+      }
+
+      if (choose) {
+        console.log(`Draw a line: ${choose}`);
+        el = choose;
+        break;
+      } else {
+        if (
+          !choose &&
+          availableIndex.includes(a) &&
+          player === squares[b] &&
+          player === squares[c]
+        ) {
+          choose = a;
+        }
+
+        if (
+          !choose &&
+          availableIndex.includes(a) &&
+          player === squares[c] &&
+          player === squares[b]
+        ) {
+          choose = a;
+        }
+
+        if (
+          !choose &&
+          availableIndex.includes(b) &&
+          player === squares[a] &&
+          player === squares[c]
+        ) {
+          choose = b;
+        }
+
+        if (
+          !choose &&
+          availableIndex.includes(b) &&
+          player === squares[c] &&
+          player === squares[a]
+        ) {
+          choose = b;
+        }
+
+        if (
+          !choose &&
+          availableIndex.includes(c) &&
+          player === squares[b] &&
+          player === squares[a]
+        ) {
+          choose = c;
+        }
+
+        if (
+          !choose &&
+          availableIndex.includes(c) &&
+          player === squares[a] &&
+          player === squares[b]
+        ) {
+          choose = c;
+        }
+
+        if (choose) {
+          console.log(`Block a line: ${choose}`);
+          el = choose;
+          break;
+        }
+      }
+    }
   }
 
   if (squaresMapXY[`sq${el}`]) return [el, ...squaresMapXY[`sq${el}`]];

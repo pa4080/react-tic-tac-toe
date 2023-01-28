@@ -21,7 +21,7 @@ export default function Status({
     : stepNumber
     ? "Next player"
     : autoplay
-    ? "Choose player"
+    ? "Choose level"
     : "First player";
 
   const whoIsNext = () => {

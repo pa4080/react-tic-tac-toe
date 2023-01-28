@@ -12,11 +12,11 @@ export default function GameAutoplay({
 }) {
   function handleSetAutoplay(trigger) {
     let newPlayers;
-    let newPlayer1 = xIsNext && players.player1 === "Star" ? "Star" : "Heart";
+    // let newPlayer1 = xIsNext && players.player1 === "Star" ? "Star" : "Heart";
 
     if (trigger) {
       newPlayers = {
-        player1: newPlayer1,
+        player1: "Heart", // newPlayer1,
         player2: "Cog"
       };
     } else {
@@ -26,9 +26,10 @@ export default function GameAutoplay({
       };
     }
 
+    localStorage.clear();
     setPlayers(newPlayers);
     setAutoplay(trigger);
-    setNewGame((prev) => !prev);
+    setNewGame(true);
   }
 
   return (

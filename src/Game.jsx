@@ -38,25 +38,46 @@ function Game() {
     }
 
     // This is the actual autoplay logic
+    // I didn't succeed to useRef and forwardRef hooks
+    // at this point...
     if (autoplay) {
       const current = history[history.length - 1];
-      const squares = current.squares;
       const xIsNext = current.xIsNext;
+
       if (!xIsNext) {
-        const [i, x, y] = calculateNextMove(squares);
+        // If we pass the players the game becomes too hard!!!
+        // So currently "Heart" is the easiest level
+        // and "Star" is much harder.
+        // Another trick is "< 4" on the condition inside,
+        //  if it is "< 3" it becomes unpossible to win :)
+        // const [i, x, y] = calculateNextMove(
+        //   current.squares,
+        //   players.player1,
+        //   players.player2
+        // );
+        const [i, x, y] = calculateNextMove(current.squares);
+
         const square = document.getElementById(`sq-${i}`);
-        const overlay = document.getElementById("game-board");
+
+        const blockTime = current.number === 0 ? 3000 : 1000;
 
         if (square) {
+          // These should be done via states...
+          const overlay = document.getElementById("game-board");
           overlay.classList.add("computer-play");
+
+          const button = document.getElementById("game-button");
+          const btnText = button.innerHTML;
+          button.innerHTML = "Computing....";
 
           setTimeout(() => {
             square.click();
+            button.innerHTML = btnText;
 
             setTimeout(() => {
               overlay.classList.remove("computer-play");
             }, 200);
-          }, 1000);
+          }, blockTime);
         }
       }
     }
@@ -70,11 +91,11 @@ function Game() {
    */
   // Switch between 1v1 and 1vPC
   useEffect(() => {
-    if (newGame) {
-      setGameHistory(initState);
-      setStepNumber(0);
-      setNewGame(true);
-    }
+    // if (newGame) {
+    setGameHistory(initState);
+    setStepNumber(0);
+    setNewGame(true);
+    // }
   }, [players, autoplay]);
 
   // Press the Restart Game button
@@ -171,6 +192,7 @@ function Game() {
         current={current}
         setStepNumber={(movie) => setStepNumber(movie)}
         players={players}
+        autoplay={autoplay}
       />
     </div>
   );

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function RestartGame({ setNewGame, winner, autoplay, handleClick, players }) {
+function RestartGame({ setNewGame, winner }) {
   const [btnChanged, setBtnChanged] = useState(false);
 
   function handleResetGame() {
@@ -24,6 +24,7 @@ function RestartGame({ setNewGame, winner, autoplay, handleClick, players }) {
             setBtnChanged(false);
           }, 150);
         }}
+        id="game-button"
         className={`py-3 px-6 text-center fit-content rounded-lg font-bold text-lg text-white transition duration-100 ${
           btnChanged ? "bg-rose-300 shadow-sm" : "bg-rose-500 shadow-md"
         }`}

@@ -3,7 +3,13 @@ import ToggleSwitch from "./ToggleSwitch";
 import { useLocalStorage } from "../hooks/LocalStorage";
 import PlayersMap from "./PlayersMap";
 
-export default function History({ history, current, setStepNumber, players }) {
+export default function History({
+  history,
+  current,
+  setStepNumber,
+  players,
+  autoplay
+}) {
   const [showHistory, setShowHistory] = useLocalStorage("HIST_SHOW", false);
   const [reverseHistory, setReverseHist] = useLocalStorage("HIST_ORDER", false);
 
@@ -52,7 +58,11 @@ export default function History({ history, current, setStepNumber, players }) {
 
       {showHistory && (
         <>
-          <div className="relative w-full cursor-default rounded-lg bg-white py-2 text-left shadow-md focus:outline-none mb-7">
+          <div
+            className={`relative w-full cursor-default rounded-lg bg-white py-2 text-left shadow-md focus:outline-none mb-7 ${
+              autoplay && "computer-play"
+            }`}
+          >
             <ol>{reverseHistory ? movies.reverse() : movies}</ol>
           </div>
           <ToggleSwitch
