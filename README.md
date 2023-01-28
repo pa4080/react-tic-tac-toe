@@ -142,8 +142,73 @@ module.exports = {
 * [Floating UI Documentation #React](https://floating-ui.com/docs/react), [React Examples](https://floating-ui.com/docs/react-examples)
 * [Floating UI on GitHub](https://github.com/floating-ui/floating-ui)
 
-**React Popper (This library is in maintenance mode)reference:**
+**React Popper (this library is in maintenance mode) reference:**
 
 * [React Popper on GitHub](https://github.com/floating-ui/react-popper)
 * [Made with React.js React Popper Review](https://madewithreactjs.com/react-popper)
 
+## Deploy to Github Pages with Github Actions
+
+**Deploy to Github Pages with Github Actions references:**
+
+* [GH-Pages on NPM](https://www.npmjs.com/package/gh-pages)
+* Pragmatic Reviews on YouTube: [How to deploy a React app to Github Pages with Github Actions](https://youtu.be/5I37iVCDUTU)
+* Tech Harvesting with Naseel on YouTube: [Implement CI/CD with React.js and Github Actions and Automatically deploy with GitHub Pages!](https://youtu.be/z2p9_2seOkI?t=1222)
+
+### Deploy to GitHub Pages
+
+1. Install the dependencies.
+
+    ```bash
+    npm i gh-pages --save-dev
+    ```
+
+2. Modify the `package.json` file (in [this way](https://youtu.be/5I37iVCDUTU?t=125)):
+
+    ```json
+    {
+      "name": "exc-js-react-tic-tac-toe",
+      "homepage": "https://metalevel-tech.github.io/exc-js-react-tic-tac-toe",
+      // ...
+      "scripts": {
+        // ...
+        "predeploy": "npm run build",
+        "deploy": "gh-pages -d dist"
+      }
+      // ...
+    }
+    ```
+
+3. Because we will publish the application on subdirectory, we need to modify the `publicPath` property in the [`vite.config.js`](vite.config.js) file:
+
+    ```js
+    // vite.config.js
+    export default {
+      // ...
+      base: "./",
+      // ...
+    }
+    ```
+
+    * [Vite Config: Shared Options|base](https://vitejs.dev/config/shared-options.html#base)
+    * [How to make SolidJS application work from a subfolder on How to dev blog](https://how-to.dev/how-to-make-solidjs-application-work-from-a-subfolder)
+
+4. Additionally you may want to create [public/404.html](public/404.html) file to display a custom HTTP 404 Error page.
+
+    * [How to Easily Make HTML Redirect to Another Page](https://www.bitdegree.org/learn/html-redirect)
+
+5. Run the deploy command:
+
+    ```bash
+    npm run deploy
+    ```
+
+6. Now on the remote repository must be created a branch named [`gh-pages`](https://github.com/metalevel-tech/exc-js-react-tic-tac-toe/tree/gh-pages).
+
+7. Also the necessary settings must be applied on the [Settings|Pages](https://github.com/metalevel-tech/exc-js-react-tic-tac-toe/settings/pages) section of the repository.
+
+8. Check the result in the browser: [https://metalevel-tech.github.io/exc-js-react-tic-tac-toe](https://metalevel-tech.github.io/exc-js-react-tac-toe).
+
+### Automate the deployment with GitHub Actions
+
+TODO...
