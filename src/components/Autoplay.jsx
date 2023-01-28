@@ -11,23 +11,6 @@ export default function GameAutoplay({
   setNewGame
 }) {
   function handleSetAutoplay(trigger) {
-    let newPlayers;
-    // let newPlayer1 = xIsNext && players.player1 === "Star" ? "Star" : "Heart";
-
-    if (trigger) {
-      newPlayers = {
-        player1: "Heart", // newPlayer1,
-        player2: "Cog"
-      };
-    } else {
-      newPlayers = {
-        player1: "Star",
-        player2: "Heart"
-      };
-    }
-
-    localStorage.clear();
-    setPlayers(newPlayers);
     setAutoplay(trigger);
     setNewGame(true);
   }

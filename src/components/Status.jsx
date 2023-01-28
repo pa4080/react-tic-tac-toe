@@ -31,10 +31,12 @@ export default function Status({
     return xIsNext ? PlayersMap(players.player1) : PlayersMap(players.player2);
   };
 
+  // In 1v1 mode
   const switchPlayers = (trigger) => {
     setNextPlayer(trigger);
   };
 
+  // In 1vPC (autoplay) mode
   const selectPlayer = (trigger) => {
     let newPlayers;
 
@@ -50,19 +52,14 @@ export default function Status({
       };
     }
 
-    // setNewGame(true);
     setPlayers(newPlayers);
   };
-
-  function whoIsWinner() {
-    return PlayersMap(winner);
-  }
 
   return (
     <div className=" inline-flex items-center font-sans text-xl mb-2 mt-8 relative">
       {message}&nbsp;
       {!winner && whoIsNext()}
-      {winner && whoIsWinner()}
+      {winner && PlayersMap(winner)}
       {!stepNumber && newGame && (
         <div className="absolute -top-4 -right-8 scale-75">
           {!autoplay && (

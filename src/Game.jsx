@@ -16,7 +16,7 @@ function Game() {
       squares: Array(9).fill(null),
       x: null,
       y: null,
-      xIsNext: JSON.parse(localStorage.getItem("X_IS_NEXT")) ?? true,
+      xIsNext: JSON.parse(localStorage.getItem("X_IS_NEXT")) ?? false,
       number: 0
     }
   ];
@@ -28,8 +28,8 @@ function Game() {
   const [autoplay, setAutoplay] = useLocalStorage("AUTOPLAY", true);
   const [nextPlayer, setNextPlayer] = useLocalStorage("X_IS_NEXT", true);
   const [players, setPlayers] = useLocalStorage("PLAYERS", {
-    player1: "Star",
-    player2: "Heart"
+    player1: "Heart",
+    player2: "Star"
   });
 
   useEffect(() => {
@@ -37,24 +37,29 @@ function Game() {
       setNextPlayer(winner === players.player1 ? true : false);
     }
 
-    // This is the actual autoplay logic
-    // I didn't succeed to useRef and forwardRef hooks
-    // at this point...
+    /**
+     * This is the actual autoplay logic
+     * I didn't succeed to useRef and forwardRef hooks
+     * at this point...
+     */
     if (autoplay) {
       const current = history[history.length - 1];
       const xIsNext = current.xIsNext;
 
       if (!xIsNext) {
-        // If we pass the players the game becomes too hard!!!
-        // So currently "Heart" is the easiest level
-        // and "Star" is much harder.
-        // Another trick is "< 4" on the condition inside,
-        //  if it is "< 3" it becomes unpossible to win :)
-        // const [i, x, y] = calculateNextMove(
-        //   current.squares,
-        //   players.player1,
-        //   players.player2
-        // );
+        /**
+         * If we pass the players the game becomes too hard!!!
+         * So currently "Heart" is the easiest level
+         * and "Star" is much harder.
+         * Another trick is "< 4" on the condition inside,
+         *  if it is "< 3" it becomes unpossible to win :)
+         *
+         * const [i, x, y] = calculateNextMove(
+         *   current.squares,
+         *   players.player1,
+         *   players.player2
+         * );
+         */
         const [i, x, y] = calculateNextMove(current.squares);
 
         const square = document.getElementById(`sq-${i}`);
@@ -91,12 +96,25 @@ function Game() {
    */
   // Switch between 1v1 and 1vPC
   useEffect(() => {
-    // if (newGame) {
     setGameHistory(initState);
     setStepNumber(0);
     setNewGame(true);
-    // }
-  }, [players, autoplay]);
+  }, [players]);
+
+  useEffect(() => {
+    if (autoplay) {
+      setPlayers({
+        player1: "Heart",
+        player2: "Cog"
+      });
+    } else {
+      setPlayers({
+        player1: "Star",
+        player2: "Heart"
+      });
+    }
+    setNextPlayer(true);
+  }, [autoplay]);
 
   // Press the Restart Game button
   useEffect(() => {

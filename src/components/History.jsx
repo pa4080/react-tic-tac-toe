@@ -11,7 +11,7 @@ export default function History({
   autoplay
 }) {
   const [showHistory, setShowHistory] = useLocalStorage("HIST_SHOW", false);
-  const [reverseHistory, setReverseHist] = useLocalStorage("HIST_ORDER", false);
+  const [reverseHistory, setReverseHist] = useLocalStorage("HIST_ORDER", true);
 
   const movies = history.map((step, movie, arr) => {
     const description = movie ? (
