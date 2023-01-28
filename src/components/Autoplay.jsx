@@ -2,17 +2,9 @@ import React from "react";
 import PlayerCog from "./players/PlayerCog";
 import ToggleSwitch from "./ToggleSwitch";
 
-export default function GameAutoplay({
-  autoplay,
-  setAutoplay,
-  players,
-  setPlayers,
-  xIsNext,
-  setNewGame
-}) {
+export default function GameAutoplay({ autoplay, setAutoplay }) {
   function handleSetAutoplay(trigger) {
     setAutoplay(trigger);
-    setNewGame(true);
   }
 
   return (

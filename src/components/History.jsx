@@ -40,8 +40,8 @@ export default function History({
           {description}
           {movie
             ? !step.xIsNext
-              ? PlayersMap(players.player1)
-              : PlayersMap(players.player2)
+              ? PlayersMap(players.p1)
+              : PlayersMap(players.p2)
             : PlayersMap("Draw")}
         </button>
       </li>

@@ -26,9 +26,9 @@ export default function Status({
 
   const whoIsNext = () => {
     if (autoplay && newGame) {
-      return PlayersMap(players.player1);
+      return PlayersMap(players.p1);
     }
-    return xIsNext ? PlayersMap(players.player1) : PlayersMap(players.player2);
+    return xIsNext ? PlayersMap(players.p1) : PlayersMap(players.p2);
   };
 
   // In 1v1 mode
@@ -42,13 +42,13 @@ export default function Status({
 
     if (trigger) {
       newPlayers = {
-        player1: "Star",
-        player2: "Cog"
+        p1: "Star",
+        p2: "Cog"
       };
     } else {
       newPlayers = {
-        player1: "Heart",
-        player2: "Cog"
+        p1: "Heart",
+        p2: "Cog"
       };
     }
 
@@ -79,7 +79,7 @@ export default function Status({
                 selectPlayer(trigger);
               }}
               label={""}
-              default={players.player1 === "Star"}
+              default={players.p1 === "Star"}
               colorLeft={"bg-rose-300"}
               colorRight={"bg-gold-primary"}
             />

@@ -28,13 +28,13 @@ function Game() {
   const [autoplay, setAutoplay] = useLocalStorage("AUTOPLAY", true);
   const [nextPlayer, setNextPlayer] = useLocalStorage("X_IS_NEXT", true);
   const [players, setPlayers] = useLocalStorage("PLAYERS", {
-    player1: "Heart",
-    player2: "Star"
+    p1: "Heart",
+    p2: "Star"
   });
 
   useEffect(() => {
     if (winner && winner !== "Draw") {
-      setNextPlayer(winner === players.player1 ? true : false);
+      setNextPlayer(winner === players.p1 ? true : false);
     }
 
     /**
@@ -56,8 +56,8 @@ function Game() {
          *
          * const [i, x, y] = calculateNextMove(
          *   current.squares,
-         *   players.player1,
-         *   players.player2
+         *   players.p1,
+         *   players.p2
          * );
          */
         const [i, x, y] = calculateNextMove(current.squares);
@@ -91,8 +91,8 @@ function Game() {
   /**
    * Probably we may need to reset xIsNext completely here,
    * when we change the mode from 1v1 1vPC...
-   * Actually 'xIsNext===true' now means 'players.player1' is next
-   * and in 1vPC mode 'players.player1' is the human.
+   * Actually 'xIsNext===true' now means 'players.p1' is next
+   * and in 1vPC mode 'players.p1' is the human.
    */
   // Switch between 1v1 and 1vPC
   useEffect(() => {
@@ -104,13 +104,13 @@ function Game() {
   useEffect(() => {
     if (autoplay) {
       setPlayers({
-        player1: "Heart",
-        player2: "Cog"
+        p1: "Heart",
+        p2: "Cog"
       });
     } else {
       setPlayers({
-        player1: "Star",
-        player2: "Heart"
+        p1: "Star",
+        p2: "Heart"
       });
     }
     setNextPlayer(true);
@@ -133,7 +133,7 @@ function Game() {
     // Ignoring a click if someone has won the game or if a Square is already filled
     if (winner || squares[i]) return;
 
-    squares[i] = current.xIsNext ? players.player1 : players.player2;
+    squares[i] = current.xIsNext ? players.p1 : players.p2;
 
     setGameHistory(
       history.concat([
