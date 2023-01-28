@@ -24,6 +24,7 @@ function Game() {
   const [gameHistory, setGameHistory] = useState(initState);
   const [stepNumber, setStepNumber] = useState(0);
   const [newGame, setNewGame] = useState(true);
+  const [player1vsPC, setPlayer1vsPC] = useState("Heart");
 
   const [autoplay, setAutoplay] = useLocalStorage("AUTOPLAY", true);
   const [nextPlayer, setNextPlayer] = useLocalStorage("X_IS_NEXT", true);
@@ -35,6 +36,7 @@ function Game() {
   useEffect(() => {
     if (winner && winner !== "Draw") {
       setNextPlayer(winner === players.p1 ? true : false);
+      setPlayer1vsPC(players.p1);
     }
 
     /**
@@ -102,6 +104,7 @@ function Game() {
   }, [players]);
 
   useEffect(() => {
+    // This doesn't work as it is expected.
     if (autoplay) {
       setPlayers({
         p1: "Heart",
@@ -113,7 +116,9 @@ function Game() {
         p2: "Heart"
       });
     }
-    setNextPlayer(true);
+    setGameHistory(initState);
+    setStepNumber(0);
+    setNewGame(true);
   }, [autoplay]);
 
   // Press the Restart Game button
@@ -181,11 +186,11 @@ function Game() {
         xIsNext={current.xIsNext}
         stepNumber={stepNumber}
         newGame={newGame}
-        setNewGame={setNewGame}
         autoplay={autoplay}
         players={players}
         setPlayers={setPlayers}
         setNextPlayer={setNextPlayer}
+        player1vsPC={player1vsPC}
       />
 
       <RestartGame

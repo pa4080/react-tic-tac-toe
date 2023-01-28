@@ -8,11 +8,11 @@ export default function Status({
   xIsNext,
   stepNumber,
   newGame,
-  setNewGame,
   autoplay,
   players,
   setPlayers,
-  setNextPlayer
+  setNextPlayer,
+  player1vsPC
 }) {
   const message = winner
     ? winner === "Draw"
@@ -39,7 +39,6 @@ export default function Status({
   // In 1vPC (autoplay) mode
   const selectPlayer = (trigger) => {
     let newPlayers;
-
     if (trigger) {
       newPlayers = {
         p1: "Star",
@@ -51,7 +50,6 @@ export default function Status({
         p2: "Cog"
       };
     }
-
     setPlayers(newPlayers);
   };
 
@@ -79,7 +77,7 @@ export default function Status({
                 selectPlayer(trigger);
               }}
               label={""}
-              default={players.p1 === "Star"}
+              default={player1vsPC !== "Heart"}
               colorLeft={"bg-rose-300"}
               colorRight={"bg-gold-primary"}
             />
