@@ -35,6 +35,9 @@
   "[typescript]": {
     "editor.defaultFormatter": "vscode.typescript-language-features"
   },
+  "[yaml]": {
+    "editor.formatOnSave": false
+  },
   "editor.formatOnSave": true,
   "editor.defaultFormatter": null,
   "spellright.language": [

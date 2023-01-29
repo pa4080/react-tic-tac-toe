@@ -211,4 +211,12 @@ module.exports = {
 
 ### Automate the deployment with GitHub Actions
 
-TODO...
+1. Create a new file named [`workflow.yml`](.github/workflows/workflow.yml) in the `.github/workflows` directory:
+
+   * [How to deploy a React app to Github Pages with Github Actions on YouTube](https://youtu.be/5I37iVCDUTU?t=272)
+
+2. The [`workflow.yml`](.github/workflows/workflow.yml) file must be setup according to the instructions in:
+   * <https://github.com/JamesIves/github-pages-deploy-action>
+   * <https://github.com/actions/checkout>
+
+3. Also the necessary settings must be applied on the [Settings|Pages](https://github.com/metalevel-tech/exc-js-react-tic-tac-toe/settings/actions)
