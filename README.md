@@ -87,9 +87,8 @@ npx tailwindcss init -p
 **Additional plugins and libraries:**
 
 ```bash
-npm @tailwindcss/forms @tailwindcss/typography @tailwindcss/aspect-ratio
-
-npm install @headlessui/react @heroicons/react
+npm i @tailwindcss/forms @tailwindcss/typography @tailwindcss/aspect-ratio
+npm i @headlessui/react @heroicons/react
 ```
 
 **Optional:** Add the **Inter font family** to your [`index.html`](index.html) file:
