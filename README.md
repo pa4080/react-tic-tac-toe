@@ -219,3 +219,5 @@ module.exports = {
    * <https://github.com/actions/checkout>
 
 3. Also the necessary settings must be applied on the [Settings|Pages](https://github.com/metalevel-tech/exc-js-react-tic-tac-toe/settings/actions)
+
+4. ...
